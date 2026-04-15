@@ -41,7 +41,7 @@ java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
 :: $PSScriptRoot is where this script is -Force hides "folder already exists" error.
 mkdir "%~dp0logsPDDL" 2>nul
 
-:: Grab .sp_log file and rename it
+:: Grabs .sp_log file and renames it
 move "%~dp2*.sp_log" "%~dp0logsPDDL\plan_tree_%TIMESTAMP%.sp_log" >nul 2>&1
 
 :: force exit cleanly
