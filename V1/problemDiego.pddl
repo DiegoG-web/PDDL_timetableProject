@@ -69,7 +69,9 @@
     (:init
         ;todo: put the initial state's facts and numeric values here
         ;(onTable a)
-        
+        (= (durataCorso corso1) 2)
+        (= (durataCorso corso2) 3)
+        (= (durataCorso corso3) 1)
         
         ;(= (batteryLevel) 3)
         ;(not (grasping))
@@ -79,10 +81,12 @@
     (:goal (and
         ;todo: put the goal condition here
         ;(onTop a c)
-        (assegnato corso1)
-        (assegnato corso2)
-        (assegnato corso3)
-       
+        ;(assegnato corso1)
+        ;(assegnato corso2)
+        ;(assegnato corso3)
+        (= (durataCorso corso1) 0)
+        (= (durataCorso corso2) 0)
+        (= (durataCorso corso3) 0)
     ))
 
     ;un-comment the following line if metric is needed

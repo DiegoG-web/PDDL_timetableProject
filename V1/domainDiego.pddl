@@ -20,8 +20,9 @@
 )
 
 
-;(:functions ;todo: define numeric functions here
-;)
+(:functions ;todo: define numeric functions here
+    (durataCorso ?c - corso)
+)
 
 ;define actions here
 (:action assegna
@@ -29,9 +30,13 @@
     :precondition (and 
         (not (occupata ?f)) 
         ;(not (associazione ?c ?f)
-        (not (assegnato ?c))
+        ;(not (assegnato ?c))
+        (> (durataCorso ?c) 0)
     )
-    :effect (and (occupata ?f) (assegnato ?c))
+    :effect (and 
+        (occupata ?f) 
+        ;(assegnato ?c) 
+        (decrease (durataCorso ?c) 1))
 )
 
 
