@@ -1,4 +1,4 @@
-(define (problem blockProblemResources) (:domain blockDomainResources)
+(define (problem problemDiego) (:domain domainDiego)
     (:objects 
         mon08
         mon09
@@ -71,7 +71,7 @@
         ;(onTable a)
         
         
-        (= (batteryLevel) 3)
+        ;(= (batteryLevel) 3)
         ;(not (grasping))
 
     )
@@ -86,6 +86,6 @@
     ))
 
     ;un-comment the following line if metric is needed
-    (:metric minimize (costo))
+    ;(:metric minimize (costo))
 )
 

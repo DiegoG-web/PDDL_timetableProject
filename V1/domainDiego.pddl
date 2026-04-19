@@ -1,6 +1,6 @@
 ;Header and description
 
-(define (domain domain_name)
+(define (domain domainDiego)
 
 ;remove requirements that are not needed
 (:requirements :typing :negative-preconditions :fluents) ;necessary to remove warnings
@@ -20,8 +20,8 @@
 )
 
 
-(:functions ;todo: define numeric functions here
-)
+;(:functions ;todo: define numeric functions here
+;)
 
 ;define actions here
 (:action assegna
