@@ -90,6 +90,6 @@
     ))
 
     ;un-comment the following line if metric is needed
-    ;(:metric minimize (costo))
+    ;(:metric minimize (costoAzione))
 )
 
