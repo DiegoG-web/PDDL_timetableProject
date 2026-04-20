@@ -82,7 +82,7 @@
         (occupata cambioGiorno2)
         (occupata cambioGiorno3)
         (occupata cambioGiorno4)
-        
+
         (oraCorrente mon08)
         (next mon08 mon09)
         (next mon09 mon10)
