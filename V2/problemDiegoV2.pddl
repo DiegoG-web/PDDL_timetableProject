@@ -1,4 +1,4 @@
-(define (problem problemDiego) (:domain domainDiego)
+(define (problem problemDiegoV2) (:domain domainDiegoV2)
     (:objects 
         cambioGiorno1
         cambioGiorno2
@@ -9,7 +9,7 @@
         mon09
         mon10
         mon11
-        mon12
+        mon12Pranzo
         mon13
         mon14
         mon15
@@ -21,7 +21,7 @@
         tue09
         tue10
         tue11
-        tue12
+        tue12Pranzo
         tue13
         tue14
         tue15
@@ -33,7 +33,7 @@
         wed09
         wed10
         wed11
-        wed12
+        wed12Pranzo
         wed13
         wed14
         wed15
@@ -45,7 +45,7 @@
         thu09
         thu10
         thu11
-        thu12
+        thu12Pranzo
         thu13
         thu14
         thu15
@@ -57,7 +57,7 @@
         fri09
         fri10
         fri11
-        fri12
+        fri12Pranzo
         fri13
         fri14
         fri15
@@ -65,30 +65,47 @@
         fri17
         fri18 - fasciaOraria
 
-        corso1
-        corso2
-        corso3 - corso
+        sistemiDigitali
+        analisi
+        componenti
+        sistemiQualita
+        robotica
+        ux
+        cybersecurity - corso
+
+        ;corso2
+        ;corso3 - corso
 
     )
 
     (:init
         ;todo: put the initial state's facts and numeric values here
         ;(onTable a)
-        (= (durataCorso corso1) 2)
-        (= (durataCorso corso2) 3)
-        (= (durataCorso corso3) 11)
+        (= (costoAzione) 0)
+        (= (durataCorso sistemiDigitali) 3)
+        (= (durataCorso analisi) 3)
+        (= (durataCorso componenti) 7)
+        (= (durataCorso sistemiQualita) 8)
+        (= (durataCorso robotica) 4)
+        (= (durataCorso ux) 3)
+        (= (durataCorso cybersecurity) 5)
 
         (occupata cambioGiorno1)
         (occupata cambioGiorno2)
         (occupata cambioGiorno3)
         (occupata cambioGiorno4)
+        (occupata mon12Pranzo)
+        (occupata tue12Pranzo)
+        (occupata wed12Pranzo)  
+        (occupata thu12Pranzo)
+        (occupata fri12Pranzo)
 
         (oraCorrente mon08)
         (next mon08 mon09)
         (next mon09 mon10)
         (next mon10 mon11)
-        (next mon11 mon12)
-        (next mon12 mon13)
+        (next mon11 mon12Pranzo)
+        (next mon12Pranzo mon13)
         (next mon13 mon14)
         (next mon14 mon15)
         (next mon15 mon16)
@@ -99,8 +116,8 @@
         (next tue08 tue09)
         (next tue09 tue10)
         (next tue10 tue11)
-        (next tue11 tue12)
-        (next tue12 tue13)
+        (next tue11 tue12Pranzo)
+        (next tue12Pranzo tue13)
         (next tue13 tue14)
         (next tue14 tue15)
         (next tue15 tue16)
@@ -111,8 +128,8 @@
         (next wed08 wed09)
         (next wed09 wed10)
         (next wed10 wed11)
-        (next wed11 wed12)
-        (next wed12 wed13)
+        (next wed11 wed12Pranzo)
+        (next wed12Pranzo wed13)
         (next wed13 wed14)
         (next wed14 wed15)
         (next wed15 wed16)
@@ -123,8 +140,8 @@
         (next thu08 thu09)
         (next thu09 thu10)
         (next thu10 thu11)
-        (next thu11 thu12)
-        (next thu12 thu13)
+        (next thu11 thu12Pranzo)
+        (next thu12Pranzo thu13)
         (next thu13 thu14)
         (next thu14 thu15)
         (next thu15 thu16)
@@ -135,8 +152,8 @@
         (next fri08 fri09)
         (next fri09 fri10)
         (next fri10 fri11)
-        (next fri11 fri12)
-        (next fri12 fri13)
+        (next fri11 fri12Pranzo)
+        (next fri12Pranzo fri13)
         (next fri13 fri14)
         (next fri14 fri15)
         (next fri15 fri16)
@@ -151,9 +168,13 @@
         ;(assegnato corso1)
         ;(assegnato corso2)
         ;(assegnato corso3)
-        (= (durataCorso corso1) 0)
-        (= (durataCorso corso2) 0)
-        (= (durataCorso corso3) 0)
+        (= (durataCorso sistemiDigitali) 0)
+        (= (durataCorso analisi) 0)
+        (= (durataCorso componenti) 0)
+        (= (durataCorso sistemiQualita) 0)
+        (= (durataCorso robotica) 0)
+        (= (durataCorso ux) 0)
+        (= (durataCorso cybersecurity) 0)
     ))
 
     ;un-comment the following line if metric is needed
