@@ -66,3 +66,5 @@ per evitare "scorriTempo" inutili e in mezzo alla giornata
 
 costo variabile di ciascuna fascia oraria (esempio più vicine alle 12 
 più economico o alla mattina)
+
+meno righe -> costo minore!!
