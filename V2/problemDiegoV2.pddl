@@ -178,6 +178,8 @@
     ))
 
     ;un-comment the following line if metric is needed
+
+    ;costoAzione
     (:metric minimize (costoAzione))
 )
 
