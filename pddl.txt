@@ -68,3 +68,22 @@ costo variabile di ciascuna fascia oraria (esempio più vicine alle 12
 più economico o alla mattina)
 
 meno righe -> costo minore!!
+
+
+
+
+
+cose da fare:
+capire avere dei benchmark significativi
+come avere uno standard di rappresentazione degli orari
+come visualizzare graficamente i blocchi?
+capire usare i consigli del professore
+capire come interpretare le flag e spiegarle
+
+
+
+cose da fare diego:
+migliorare il proprio planner
+
+cose da fare brando:
+Come fare la stessa cosa stile blocksword
