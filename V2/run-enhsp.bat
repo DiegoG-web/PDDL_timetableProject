@@ -19,11 +19,11 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 
 :: A: DRAFTING MODE (satisficing)
 :: finds a working plan quickly using the h_add heuristic
-java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
+:: java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
 
 :: B: OPTIMAL MODE
 :: Finds the path with the absolute lowest cost using h_max heuristic
-::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -sjr
+java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -sjr
 
 :: C: BENCHMARK MODE
 :: testing the 5 scaling instances for the report. Stops at 60s, saves the plan

@@ -58,3 +58,11 @@ Constraints:
 -massimo 8 ore
 -pausa pranzo
 -massimo 4 ore di una materia
+
+
+idee V2 Diego:
+azione che scorre il tempo fino alla prossima giornata con basso costo
+per evitare "scorriTempo" inutili e in mezzo alla giornata
+
+costo variabile di ciascuna fascia oraria (esempio più vicine alle 12 
+più economico o alla mattina)
