@@ -28,20 +28,6 @@
     (costoAzione)
 )
 
-;define actions here
-; (:action assegna1ora
-;     :parameters (?c - corso ?f - fasciaOraria)
-;     :precondition (and 
-;         (oraCorrente ?f)
-;         (not (occupata ?f))
-;         (> (durataCorso ?c) 0)
-;     )
-;     :effect (and
-;         (occupata ?f)
-;         (decrease (durataCorso ?c) 1)
-;         (increase (costoAzione) 50)
-;     )
-; )
 (:action assegna2ore
     :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria)
     :precondition (and 
