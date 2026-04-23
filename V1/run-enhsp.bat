@@ -19,11 +19,11 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 
 :: A: DRAFTING MODE (satisficing)
 :: finds a working plan quickly using the h_add heuristic
-java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
+:: java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
 
 :: B: OPTIMAL MODE
 :: Finds the path with the absolute lowest cost using h_max heuristic
-::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -sjr
+::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -timeout 10 -sjr
 
 :: C: BENCHMARK MODE
 :: testing the 5 scaling instances for the report. Stops at 60s, saves the plan
@@ -36,6 +36,13 @@ java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
 :: E: GUI
 :: a plan, hides the metrics, saves the plan and final state
 ::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -onlyplan -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt"
+
+:: E: MULTIPLE SOLUTIONS
+:: flag -anytime. Questa vi esegue enhsp in modo da ottenere un numero di soluzioni di costo decrescente. 
+::Qui sarebbe da capire come si comporta il planner nel tempo.
+java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\clean_plan_output_%TIMESTAMP%.txt"
+::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\clean_plan_output_%TIMESTAMP%.txt"
+::SAT_HMRP     : satisficing planning with -anytime
 
 :: make the logsPDDL folder
 :: $PSScriptRoot is where this script is -Force hides "folder already exists" error.
