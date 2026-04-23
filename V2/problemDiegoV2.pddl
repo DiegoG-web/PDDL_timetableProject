@@ -4,6 +4,7 @@
         cambioGiorno2
         cambioGiorno3
         cambioGiorno4
+        cambioGiorno5
 
         mon08
         mon09
@@ -94,6 +95,7 @@
         (occupata cambioGiorno2)
         (occupata cambioGiorno3)
         (occupata cambioGiorno4)
+        (occupata cambioGiorno5)
         (occupata mon12Pranzo)
         (occupata tue12Pranzo)
         (occupata wed12Pranzo)  
@@ -159,7 +161,60 @@
         (next fri15 fri16)
         (next fri16 fri17)
         (next fri17 fri18)
+        (next fri18 cambioGiorno5)
 
+        (fineGiornata mon08 cambioGiorno1)
+        (fineGiornata mon09 cambioGiorno1)
+        (fineGiornata mon10 cambioGiorno1)
+        (fineGiornata mon11 cambioGiorno1)
+        (fineGiornata mon13 cambioGiorno1)
+        (fineGiornata mon14 cambioGiorno1)
+        (fineGiornata mon15 cambioGiorno1)
+        (fineGiornata mon16 cambioGiorno1)
+        (fineGiornata mon17 cambioGiorno1)
+        (fineGiornata mon18 cambioGiorno1)
+        (fineGiornata tue08 cambioGiorno2)
+        (fineGiornata tue09 cambioGiorno2)
+        (fineGiornata tue10 cambioGiorno2)
+        (fineGiornata tue11 cambioGiorno2)
+        (fineGiornata tue13 cambioGiorno2)
+        (fineGiornata tue14 cambioGiorno2)
+        (fineGiornata tue15 cambioGiorno2)
+        (fineGiornata tue16 cambioGiorno2)
+        (fineGiornata tue17 cambioGiorno2)
+        (fineGiornata tue18 cambioGiorno2)
+        (fineGiornata wed08 cambioGiorno3)
+        (fineGiornata wed09 cambioGiorno3)
+        (fineGiornata wed10 cambioGiorno3)
+        (fineGiornata wed11 cambioGiorno3)
+        (fineGiornata wed13 cambioGiorno3)
+        (fineGiornata wed14 cambioGiorno3)
+        (fineGiornata wed15 cambioGiorno3)
+        (fineGiornata wed16 cambioGiorno3)
+        (fineGiornata wed17 cambioGiorno3)
+        (fineGiornata wed18 cambioGiorno3)
+        (fineGiornata thu08 cambioGiorno4)
+        (fineGiornata thu09 cambioGiorno4)
+        (fineGiornata thu10 cambioGiorno4)
+        (fineGiornata thu11 cambioGiorno4)
+        (fineGiornata thu13 cambioGiorno4)
+        (fineGiornata thu14 cambioGiorno4)
+        (fineGiornata thu15 cambioGiorno4)
+        (fineGiornata thu16 cambioGiorno4)
+        (fineGiornata thu17 cambioGiorno4)
+        (fineGiornata thu18 cambioGiorno4)
+        (fineGiornata fri08 cambioGiorno5)
+        (fineGiornata fri09 cambioGiorno5)
+        (fineGiornata fri10 cambioGiorno5)
+        (fineGiornata fri11 cambioGiorno5)
+        (fineGiornata fri13 cambioGiorno5)
+        (fineGiornata fri14 cambioGiorno5)
+        (fineGiornata fri15 cambioGiorno5)
+        (fineGiornata fri16 cambioGiorno5)
+        (fineGiornata fri17 cambioGiorno5)
+        (fineGiornata fri18 cambioGiorno5)
+
+        
     )
 
     (:goal (and

@@ -18,6 +18,7 @@
     ;(assegnato ?c - corso)
     (oraCorrente ?f - fasciaOraria)
     (next ?f1 ?f2 - fasciaOraria)
+    (fineGiornata ?f1 - fasciaOraria ?f2 - fasciaOraria)
 )
 
 
@@ -115,6 +116,18 @@
         (increase (costoAzione) 1) ;da valutare bene
     )
 )
+(:action terminaGiornata
+    :parameters (?f1 - fasciaOraria ?f2 - fasciaOraria)
+    :precondition (and 
+        (oraCorrente ?f1)
+        (fineGiornata ?f1 ?f2)
+    )
+    :effect (and 
+        (not (oraCorrente ?f1))
+        (oraCorrente ?f2)
+    )
+)
+
 
 
 )
