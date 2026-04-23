@@ -19,7 +19,7 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 
 :: A: DRAFTING MODE (satisficing)
 :: finds a working plan quickly using the h_add heuristic
-:: java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
+ java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
 
 :: B: OPTIMAL MODE
 :: Finds the path with the absolute lowest cost using h_max heuristic
@@ -40,7 +40,7 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 :: E: GUI
 :: flag -anytime. Questa vi esegue enhsp in modo da ottenere un numero di soluzioni di costo decrescente. 
 ::Qui sarebbe da capire come si comporta il planner nel tempo.
-java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hadd -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt"
+::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hadd -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt"
 
 :: make the logsPDDL folder
 :: $PSScriptRoot is where this script is -Force hides "folder already exists" error.

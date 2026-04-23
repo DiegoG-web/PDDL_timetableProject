@@ -10,7 +10,7 @@
         mon09
         mon10
         mon11
-        mon12Pranzo
+        ;mon12Pranzo
         mon13
         mon14
         mon15
@@ -22,7 +22,7 @@
         tue09
         tue10
         tue11
-        tue12Pranzo
+        ;tue12Pranzo
         tue13
         tue14
         tue15
@@ -34,7 +34,7 @@
         wed09
         wed10
         wed11
-        wed12Pranzo
+        ;wed12Pranzo
         wed13
         wed14
         wed15
@@ -46,7 +46,7 @@
         thu09
         thu10
         thu11
-        thu12Pranzo
+        ;thu12Pranzo
         thu13
         thu14
         thu15
@@ -58,7 +58,7 @@
         fri09
         fri10
         fri11
-        fri12Pranzo
+        ;fri12Pranzo
         fri13
         fri14
         fri15
@@ -96,18 +96,18 @@
         (occupata cambioGiorno3)
         (occupata cambioGiorno4)
         (occupata cambioGiorno5)
-        (occupata mon12Pranzo)
-        (occupata tue12Pranzo)
-        (occupata wed12Pranzo)  
-        (occupata thu12Pranzo)
-        (occupata fri12Pranzo)
+        ;(occupata mon12Pranzo)
+        ;(occupata tue12Pranzo)
+        ;(occupata wed12Pranzo)  
+        ;(occupata thu12Pranzo)
+        ;(occupata fri12Pranzo)
 
         (oraCorrente mon08)
         (next mon08 mon09)
         (next mon09 mon10)
         (next mon10 mon11)
-        (next mon11 mon12Pranzo)
-        (next mon12Pranzo mon13)
+        ;(next mon11 mon12Pranzo)
+        ;(next mon12Pranzo mon13)
         (next mon13 mon14)
         (next mon14 mon15)
         (next mon15 mon16)
@@ -118,8 +118,8 @@
         (next tue08 tue09)
         (next tue09 tue10)
         (next tue10 tue11)
-        (next tue11 tue12Pranzo)
-        (next tue12Pranzo tue13)
+        ;(next tue11 tue12Pranzo)
+        ;(next tue12Pranzo tue13)
         (next tue13 tue14)
         (next tue14 tue15)
         (next tue15 tue16)
@@ -130,8 +130,8 @@
         (next wed08 wed09)
         (next wed09 wed10)
         (next wed10 wed11)
-        (next wed11 wed12Pranzo)
-        (next wed12Pranzo wed13)
+        ;(next wed11 wed12Pranzo)
+        ;(next wed12Pranzo wed13)
         (next wed13 wed14)
         (next wed14 wed15)
         (next wed15 wed16)
@@ -142,20 +142,20 @@
         (next thu08 thu09)
         (next thu09 thu10)
         (next thu10 thu11)
-        (next thu11 thu12Pranzo)
-        (next thu12Pranzo thu13)
+        ;(next thu11 thu12Pranzo)
+        ;(next thu12Pranzo thu13)
         (next thu13 thu14)
         (next thu14 thu15)
         (next thu15 thu16)
         (next thu16 thu17)
         (next thu17 thu18)
-        (next thu18 cambioGiorno4)
-        (next cambioGiorno4 fri08)
+        ;(next thu18 cambioGiorno4)
+        ;(next cambioGiorno4 fri08)
         (next fri08 fri09)
         (next fri09 fri10)
         (next fri10 fri11)
-        (next fri11 fri12Pranzo)
-        (next fri12Pranzo fri13)
+        ;(next fri11 fri12Pranzo)
+        ;(next fri12Pranzo fri13)
         (next fri13 fri14)
         (next fri14 fri15)
         (next fri15 fri16)
@@ -214,7 +214,11 @@
         (fineGiornata fri17 cambioGiorno5)
         (fineGiornata fri18 cambioGiorno5)
 
-        
+        (pausaPranzo mon11 mon13)
+        (pausaPranzo tue11 tue13)
+        (pausaPranzo wed11 wed13)
+        (pausaPranzo thu11 thu13)
+        (pausaPranzo fri11 fri13)
     )
 
     (:goal (and

@@ -19,6 +19,7 @@
     (oraCorrente ?f - fasciaOraria)
     (next ?f1 ?f2 - fasciaOraria)
     (fineGiornata ?f1 - fasciaOraria ?f2 - fasciaOraria)
+    (pausaPranzo ?f1 - fasciaOraria ?f2 - fasciaOraria)
 )
 
 
@@ -121,6 +122,17 @@
     :precondition (and 
         (oraCorrente ?f1)
         (fineGiornata ?f1 ?f2)
+    )
+    :effect (and 
+        (not (oraCorrente ?f1))
+        (oraCorrente ?f2)
+    )
+)
+(:action pranzo
+    :parameters (?f1 - fasciaOraria ?f2 - fasciaOraria)
+    :precondition (and 
+        (oraCorrente ?f1)
+        (pausaPranzo ?f1 ?f2)
     )
     :effect (and 
         (not (oraCorrente ?f1))
