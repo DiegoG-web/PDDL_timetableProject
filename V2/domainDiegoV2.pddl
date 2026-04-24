@@ -13,10 +13,10 @@
 ; un-comment following line if constants are needed
 ;(:constants )
 
-(:predicates ;todo: define predicates here
+(:predicates ;i primi 2 influenzano il numero di stati, gli altri non vengono modificati quindi influiscono meno
     (occupata ?f - fasciaOraria) 
-    ;(assegnato ?c - corso)
     (oraCorrente ?f - fasciaOraria)
+
     (next ?f1 ?f2 - fasciaOraria)
     (fineGiornata ?f1 - fasciaOraria ?f2 - fasciaOraria)
     (pausaPranzo ?f1 - fasciaOraria ?f2 - fasciaOraria)

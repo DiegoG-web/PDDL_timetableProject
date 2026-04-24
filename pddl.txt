@@ -82,10 +82,11 @@ capire come interpretare le flag e spiegarle
 
 
 
-cose da fare diego:
-migliorare il proprio planner
-
-cose da fare brando:
-Come fare la stessa cosa stile blocksword
-
 https://planning.wiki/   utile in futuro?
+
+NB aggiungere la aule comporta di creare le fasce orarie per ciascuna. Non si può aggirare il problema.
+
+cose da fare (post chiamata del 24-04):
+
+Diego: esploro le flag. Vedi Patty.
+Brando: migliorare il tuo con la V2
