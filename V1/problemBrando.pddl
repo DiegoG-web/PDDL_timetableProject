@@ -1,5 +1,5 @@
     (define (problem problemBrando) (:domain domainBrando)
-    (:objects 
+    (:objects
         sistemiDigitali
         analisi
         componenti
@@ -127,8 +127,6 @@
         (fasciaOrariaLibera fri17)
         (fasciaOrariaLibera fri18) 
 
-        (= (costoTotale) 0)
-
         (= (costoFasciaOraria mon08) 1); a incrementare nel giorno
         (= (costoFasciaOraria mon09) 2)
         (= (costoFasciaOraria mon10) 3)
@@ -184,6 +182,8 @@
         (= (costoFasciaOraria fri16) 9)
         (= (costoFasciaOraria fri17) 10)
         (= (costoFasciaOraria fri18) 11) 
+
+        (= (costoTotale) 0)
     )
 
     (:goal (and

@@ -1,4 +1,3 @@
-;Header and description
 
 (define (domain domainBrando)
     ; (:requirements :strips :fluents :durative-actions :timed-initial-literals :typing :conditional-effects :negative-preconditions :duration-inequalities :equality :typing :action-costs)
@@ -38,3 +37,6 @@
         )
     )
 )
+
+aggiungere costo di nuovi giorni
+più ore delle stessa materia
