@@ -71,7 +71,6 @@
     )
 
     (:init
-        ;todo: put the initial state's facts and numeric values here
         (fasciaOrariaLibera mon08)
         (fasciaOrariaLibera mon09)
         (fasciaOrariaLibera mon10)
@@ -188,7 +187,6 @@
     )
 
     (:goal (and
-        ;todo: put the goal condition here
         (fissato sistemiDigitali)
         (fissato analisi)
         (fissato componenti)
