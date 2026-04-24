@@ -40,7 +40,7 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 :: E: MULTIPLE SOLUTIONS
 :: flag -anytime. Questa vi esegue enhsp in modo da ottenere un numero di soluzioni di costo decrescente. 
 ::Qui sarebbe da capire come si comporta il planner nel tempo.
-java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\clean_plan_output_%TIMESTAMP%.txt"
+java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner SAT_HMRP -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\clean_plan_output_%TIMESTAMP%.txt"
 ::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -anytime -timeout 10 -pls > "%~dp0logsPDDL\final_state_output_%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\clean_plan_output_%TIMESTAMP%.txt"
 ::SAT_HMRP     : satisficing planning with -anytime
 
