@@ -1,4 +1,4 @@
-(define (problem problemBrandoV2) (:domain domainBrandoV2)
+(define (problem problemBrandoV3) (:domain domainBrandoV3)
     (:objects
         sistemiDigitali_1
         sistemiDigitali_2
@@ -94,9 +94,63 @@
         fri16
         fri17
         fri18 - fasciaOraria
+
+        Marcellini
+        Bau
+        Sisinni - professore
     )
 
     (:init
+        (insegna Sisinni sistemiDigitali_1)
+        (insegna Sisinni sistemiDigitali_2)
+        (insegna Sisinni sistemiDigitali_3)
+        (insegna Marcellini analisi_1)
+        (insegna Marcellini analisi_2)
+        (insegna Marcellini analisi_3)
+        (insegna Bau componenti_1)
+        (insegna Bau componenti_2)
+        (insegna Bau componenti_3)
+        (insegna Bau componenti_4)
+        (insegna Bau componenti_5)
+        (insegna Bau componenti_6)
+        (insegna Bau componenti_7)
+
+
+        (profDisponibile Sisinni mon08)
+        (profDisponibile Sisinni mon09)
+        (profDisponibile Sisinni mon10)
+        (profDisponibile Sisinni mon11)
+        (profDisponibile Sisinni mon12)
+        (profDisponibile Sisinni mon13)
+        (profDisponibile Sisinni mon14)
+        (profDisponibile Sisinni mon15)
+        (profDisponibile Sisinni mon16)
+        (profDisponibile Sisinni mon17)
+        (profDisponibile Sisinni mon18)
+        (profDisponibile Marcellini tue08)
+        (profDisponibile Marcellini tue09)
+        (profDisponibile Marcellini tue10)
+        (profDisponibile Marcellini tue11)
+        (profDisponibile Marcellini tue12)
+        (profDisponibile Marcellini tue13)
+        (profDisponibile Marcellini tue14)
+        (profDisponibile Marcellini tue15)
+        (profDisponibile Marcellini tue16)
+        (profDisponibile Marcellini tue17)
+        (profDisponibile Marcellini tue18)
+        (profDisponibile Bau wed08)
+        (profDisponibile Bau wed09)
+        (profDisponibile Bau wed10)
+        (profDisponibile Bau wed11)
+        (profDisponibile Bau wed12)
+        (profDisponibile Bau wed13)
+        (profDisponibile Bau wed14)
+        (profDisponibile Bau wed15)
+        (profDisponibile Bau wed16)
+        (profDisponibile Bau wed17)
+        (profDisponibile Bau wed18)
+
+
         (fasciaOrariaLibera mon08)
         (fasciaOrariaLibera mon09)
         (fasciaOrariaLibera mon10)

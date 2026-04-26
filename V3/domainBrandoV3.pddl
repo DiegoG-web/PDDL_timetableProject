@@ -1,11 +1,12 @@
 
-(define (domain domainBrandoV2)
+(define (domain domainBrandoV3)
     ; (:requirements :strips :fluents :durative-actions :timed-initial-literals :typing :conditional-effects :negative-preconditions :duration-inequalities :equality :typing :action-costs)
     (:requirements :fluents :typing :negative-preconditions :action-costs :equality )
 
     (:types 
         fasciaOraria
         corso
+        professore
     )
 
     (:predicates
@@ -17,6 +18,9 @@
         (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
         (quartettoFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria)
         (quartettoCorsi ?c1 - corso ?c2 - corso ?c3 - corso ?c4 - corso)
+
+        (insegna ?p - professore ?c - corso)
+        (profDisponibile ?p - professore ?f - fasciaOraria)
     )
 
 
@@ -32,18 +36,22 @@
         :parameters (
             ?c - corso
             ?f - fasciaOraria
+            ?p - professore
         )
         :precondition (and 
             (not (fissato ?c));il corso non deve essere stato fissato, schedulato
             (fasciaOrariaLibera ?f)
             ;(<= (costoFasciaOraria ?f) (/ (+(total-cost) 1) (/ (treeHeight) 2))); costoFasciaOraria ?f <= (total-cost+3)/(treeHeight/2)    
             ;DA APPROFONDIRE riduzione del branching factor con soglia di costo dipendente dal total-cost e la profondità
+            (insegna ?p ?c)
+            (profDisponibile ?p ?f)
         )
         :effect (and 
             (fissato ?c)
             (not (fasciaOrariaLibera ?f))
             (increase (total-cost) (costoFasciaOraria ?f))
             ;(increase (treeHeight) 1)
+            (not (profDisponibile ?p ?f))
         )
     )
 
@@ -53,6 +61,7 @@
             ?c2 - corso 
             ?f1 - fasciaOraria 
             ?f2 - fasciaOraria
+            ?p - professore
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -63,6 +72,9 @@
             (fasciaOrariaLibera ?f1)
             (fasciaOrariaLibera ?f2)
             (consecutive ?f1 ?f2)
+
+            (insegna ?p ?c1)
+            (profDisponibile ?p ?f1)
         )
         :effect (and 
             (fissato ?c1)
@@ -70,6 +82,7 @@
             (not (fasciaOrariaLibera ?f1))
             (not (fasciaOrariaLibera ?f2))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (costoFasciaOraria ?f2)) 2)); socnto di 2
+            (not (profDisponibile ?p ?f1))
         )
     )
     
@@ -81,6 +94,7 @@
             ?f1 - fasciaOraria 
             ?f2 - fasciaOraria
             ?f3 - fasciaOraria
+            ?p - professore
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -97,6 +111,9 @@
             (fasciaOrariaLibera ?f1)
             (fasciaOrariaLibera ?f2)
             (fasciaOrariaLibera ?f3)
+            
+            (insegna ?p ?c1)
+            (profDisponibile ?p ?f1)
         )
         :effect (and 
             (fissato ?c1)
@@ -106,6 +123,7 @@
             (not (fasciaOrariaLibera ?f2))
             (not (fasciaOrariaLibera ?f3))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3))) 3)); socnto di 3
+            (not (profDisponibile ?p ?f1))
         )
     )
 
@@ -119,6 +137,7 @@
             ?f2 - fasciaOraria
             ?f3 - fasciaOraria
             ?f4 - fasciaOraria
+            ?p - professore
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -133,6 +152,9 @@
             (fasciaOrariaLibera ?f2)
             (fasciaOrariaLibera ?f3)
             (fasciaOrariaLibera ?f4)
+            
+            (insegna ?p ?c1)
+            (profDisponibile ?p ?f1)
         )
         :effect (and 
             (fissato ?c1)
@@ -144,6 +166,7 @@
             (not (fasciaOrariaLibera ?f3))
             (not (fasciaOrariaLibera ?f4))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f4) (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3)))) 4)); socnto di 3
+            (not (profDisponibile ?p ?f1))
         )
     )
 )
