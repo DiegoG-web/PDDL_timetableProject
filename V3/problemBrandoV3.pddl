@@ -98,6 +98,10 @@
         Marcellini
         Bau
         Sisinni - professore
+
+        N6
+        N3
+        B31 - aula
     )
 
     (:init
@@ -149,6 +153,42 @@
         (profDisponibile Bau wed16)
         (profDisponibile Bau wed17)
         (profDisponibile Bau wed18)
+
+        (aulaDisponibile B31 mon08)
+        (aulaDisponibile B31 mon09)
+        (aulaDisponibile B31 mon10)
+        ; (aulaDisponibile B31 mon11)
+        ; (aulaDisponibile B31 mon12)
+        ; (aulaDisponibile B31 mon13)
+        ; (aulaDisponibile B31 mon14)
+        ; (aulaDisponibile B31 mon15)
+        ; (aulaDisponibile B31 mon16)
+        ; (aulaDisponibile B31 mon17)
+        ; (aulaDisponibile B31 mon18)
+        
+        ; (aulaDisponibile N6 tue08)
+        ; (aulaDisponibile N6 tue09)
+        ; (aulaDisponibile N6 tue10)
+        ; (aulaDisponibile N6 tue11)
+        ; (aulaDisponibile N6 tue12)
+        ; (aulaDisponibile N6 tue13)
+        ; (aulaDisponibile N6 tue14)
+        (aulaDisponibile N6 tue15)
+        (aulaDisponibile N6 tue16)
+        (aulaDisponibile N6 tue17)
+        (aulaDisponibile N6 tue18)
+
+        (aulaDisponibile N3 wed08)
+        (aulaDisponibile N3 wed09)
+        ; (aulaDisponibile N3 wed10)
+        ; (aulaDisponibile N3 wed11)
+        ; (aulaDisponibile N3 wed12)
+        (aulaDisponibile N3 wed13)
+        (aulaDisponibile N3 wed14)
+        (aulaDisponibile N3 wed15)
+        (aulaDisponibile N3 wed16)
+        (aulaDisponibile N3 wed17)
+        (aulaDisponibile N3 wed18)
 
 
         (fasciaOrariaLibera mon08)

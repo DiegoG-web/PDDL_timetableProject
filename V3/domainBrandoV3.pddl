@@ -7,6 +7,7 @@
         fasciaOraria
         corso
         professore
+        aula
     )
 
     (:predicates
@@ -21,6 +22,8 @@
 
         (insegna ?p - professore ?c - corso)
         (profDisponibile ?p - professore ?f - fasciaOraria)
+
+        (aulaDisponibile ?a - aula ?f - fasciaOraria);introdurre una function per la capienza?
     )
 
 
@@ -37,6 +40,7 @@
             ?c - corso
             ?f - fasciaOraria
             ?p - professore
+            ?a - aula
         )
         :precondition (and 
             (not (fissato ?c));il corso non deve essere stato fissato, schedulato
@@ -45,6 +49,7 @@
             ;DA APPROFONDIRE riduzione del branching factor con soglia di costo dipendente dal total-cost e la profondità
             (insegna ?p ?c)
             (profDisponibile ?p ?f)
+            (aulaDisponibile ?a ?f)
         )
         :effect (and 
             (fissato ?c)
@@ -52,6 +57,7 @@
             (increase (total-cost) (costoFasciaOraria ?f))
             ;(increase (treeHeight) 1)
             (not (profDisponibile ?p ?f))
+            (not (aulaDisponibile ?a ?f))
         )
     )
 
@@ -62,6 +68,7 @@
             ?f1 - fasciaOraria 
             ?f2 - fasciaOraria
             ?p - professore
+            ?a - aula
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -74,7 +81,12 @@
             (consecutive ?f1 ?f2)
 
             (insegna ?p ?c1)
+            
             (profDisponibile ?p ?f1)
+            (profDisponibile ?p ?f2)
+
+            (aulaDisponibile ?a ?f1)
+            (aulaDisponibile ?a ?f2)
         )
         :effect (and 
             (fissato ?c1)
@@ -82,7 +94,12 @@
             (not (fasciaOrariaLibera ?f1))
             (not (fasciaOrariaLibera ?f2))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (costoFasciaOraria ?f2)) 2)); socnto di 2
+                        
             (not (profDisponibile ?p ?f1))
+            (not (profDisponibile ?p ?f2))
+            
+            (not (aulaDisponibile ?a ?f1))
+            (not (aulaDisponibile ?a ?f2))
         )
     )
     
@@ -95,6 +112,7 @@
             ?f2 - fasciaOraria
             ?f3 - fasciaOraria
             ?p - professore
+            ?a - aula
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -113,7 +131,14 @@
             (fasciaOrariaLibera ?f3)
             
             (insegna ?p ?c1)
+            
             (profDisponibile ?p ?f1)
+            (profDisponibile ?p ?f2)
+            (profDisponibile ?p ?f3)
+
+            (aulaDisponibile ?a ?f1)
+            (aulaDisponibile ?a ?f2)
+            (aulaDisponibile ?a ?f3)
         )
         :effect (and 
             (fissato ?c1)
@@ -123,7 +148,14 @@
             (not (fasciaOrariaLibera ?f2))
             (not (fasciaOrariaLibera ?f3))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3))) 3)); socnto di 3
+            
             (not (profDisponibile ?p ?f1))
+            (not (profDisponibile ?p ?f2))
+            (not (profDisponibile ?p ?f3))
+            
+            (not (aulaDisponibile ?a ?f1))
+            (not (aulaDisponibile ?a ?f2))
+            (not (aulaDisponibile ?a ?f3))
         )
     )
 
@@ -138,6 +170,7 @@
             ?f3 - fasciaOraria
             ?f4 - fasciaOraria
             ?p - professore
+            ?a - aula
         )
         :precondition (and 
             (not (fissato ?c1))
@@ -154,7 +187,16 @@
             (fasciaOrariaLibera ?f4)
             
             (insegna ?p ?c1)
+
             (profDisponibile ?p ?f1)
+            (profDisponibile ?p ?f2)
+            (profDisponibile ?p ?f3)
+            (profDisponibile ?p ?f4)
+
+            (aulaDisponibile ?a ?f1)
+            (aulaDisponibile ?a ?f2)
+            (aulaDisponibile ?a ?f3)
+            (aulaDisponibile ?a ?f4)
         )
         :effect (and 
             (fissato ?c1)
@@ -166,7 +208,16 @@
             (not (fasciaOrariaLibera ?f3))
             (not (fasciaOrariaLibera ?f4))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f4) (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3)))) 4)); socnto di 3
+            
             (not (profDisponibile ?p ?f1))
+            (not (profDisponibile ?p ?f2))
+            (not (profDisponibile ?p ?f3))
+            (not (profDisponibile ?p ?f4))
+            
+            (not (aulaDisponibile ?a ?f1))
+            (not (aulaDisponibile ?a ?f2))
+            (not (aulaDisponibile ?a ?f3))
+            (not (aulaDisponibile ?a ?f4))
         )
     )
 )
