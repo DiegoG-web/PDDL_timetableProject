@@ -13,6 +13,8 @@
         (fasciaOrariaLibera ?f - fasciaOraria)
         (consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
         (stessoCorso ?c1 - corso ?c2 - corso)
+        (triadeFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria)
+        (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
     )
 
 
@@ -24,7 +26,7 @@
         ;(treeHeight)
     )
 
-    (:action fissaCorso
+    (:action fissaCorso1H
         :parameters (
             ?c - corso
             ?f - fasciaOraria
@@ -68,8 +70,43 @@
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (costoFasciaOraria ?f2)) 2)); socnto di 2
         )
     )
+    (:action fissaCorso3H
+        :parameters (
+            ?c1 - corso 
+            ?c2 - corso 
+            ?c3 - corso 
+            ?f1 - fasciaOraria 
+            ?f2 - fasciaOraria
+            ?f3 - fasciaOraria
+        )
+        :precondition (and 
+            (not (fissato ?c1))
+            (not (fissato ?c2))
+            (not (fissato ?c3))
+            (not (= ?c1 ?c2))
+            (not (= ?c1 ?c3))
+            (not (= ?c3 ?c2))
+            (stessoCorso ?c1 ?c2)
+            (stessoCorso ?c1 ?c3)
+            (stessoCorso ?c2 ?c3); inutile credo
+            
+            (fasciaOrariaLibera ?f1)
+            (fasciaOrariaLibera ?f2)
+            (fasciaOrariaLibera ?f3)
+            (consecutive ?f1 ?f2)
+            (consecutive ?f2 ?f3)
+        )
+        :effect (and 
+            (fissato ?c1)
+            (fissato ?c2)
+            (fissato ?c3)
+            (not (fasciaOrariaLibera ?f1))
+            (not (fasciaOrariaLibera ?f2))
+            (not (fasciaOrariaLibera ?f3))
+            (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3))) 3)); socnto di 3
+        )
+    )
 )
-
 
 
 
