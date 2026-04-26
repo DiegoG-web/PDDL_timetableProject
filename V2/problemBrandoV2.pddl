@@ -1,13 +1,39 @@
-    (define (problem problemBrando) (:domain domainBrando)
+(define (problem problemBrandoV2) (:domain domainBrandoV2)
     (:objects
-        sistemiDigitali
-        analisi
-        componenti
-        sistemiQualita
-        robotica
-        ux
-        cybersecurity - corso
-
+        sistemiDigitali_1
+        sistemiDigitali_2
+        sistemiDigitali_3
+        analisi_1
+        analisi_2
+        analisi_3
+        componenti_1
+        componenti_2
+        componenti_3
+        componenti_4
+        componenti_5
+        componenti_6
+        componenti_7
+        ; sistemiQualita_1
+        ; sistemiQualita_2
+        ; sistemiQualita_3
+        ; sistemiQualita_4
+        ; sistemiQualita_5
+        ; sistemiQualita_6
+        ; sistemiQualita_7
+        ; sistemiQualita_8
+        ; robotica_1
+        ; robotica_2
+        ; robotica_3
+        ; robotica_4
+        ; ux_1
+        ; ux_2
+        ; ux_3
+        ; cybersecurity_1
+        ; cybersecurity_2
+        ; cybersecurity_3
+        ; cybersecurity_4
+        ; cybersecurity_5 
+        - corso
         
         mon08
         mon09
@@ -183,22 +209,158 @@
         (= (costoFasciaOraria fri17) 10)
         (= (costoFasciaOraria fri18) 11) 
 
-        (= (costoTotale) 0)
-        (= (treeHeight) 0)
+        (consecutive mon08 mon09)
+        (consecutive mon09 mon10)
+        (consecutive mon10 mon11)
+        (consecutive mon11 mon12)
+        (consecutive mon12 mon13)
+        (consecutive mon13 mon14)
+        (consecutive mon14 mon15)
+        (consecutive mon15 mon16)
+        (consecutive mon16 mon17)
+        (consecutive mon17 mon18)
+        ;(consecutive mon18 )
+        (consecutive tue08 tue09)
+        (consecutive tue09 tue10)
+        (consecutive tue10 tue11)
+        (consecutive tue11 tue12)
+        (consecutive tue12 tue13)
+        (consecutive tue13 tue14)
+        (consecutive tue14 tue15)
+        (consecutive tue15 tue16)
+        (consecutive tue16 tue17)
+        (consecutive tue17 tue18)
+        ;(consecutive tue18 )
+        (consecutive wed08 wed09)
+        (consecutive wed09 wed10)
+        (consecutive wed10 wed11)
+        (consecutive wed11 wed12)
+        (consecutive wed12 wed13)
+        (consecutive wed13 wed14)
+        (consecutive wed14 wed15)
+        (consecutive wed15 wed16)
+        (consecutive wed16 wed17)
+        (consecutive wed17 wed18)
+        ;(consecutive wed18 )
+        (consecutive thu08 thu09)
+        (consecutive thu09 thu10)
+        (consecutive thu10 thu11)
+        (consecutive thu11 thu12)
+        (consecutive thu12 thu13)
+        (consecutive thu13 thu14)
+        (consecutive thu14 thu15)
+        (consecutive thu15 thu16)
+        (consecutive thu16 thu17)
+        (consecutive thu17 thu18)
+        ;(consecutive thu18 )
+        (consecutive fri08 fri09)
+        (consecutive fri09 fri10)
+        (consecutive fri10 fri11)
+        (consecutive fri11 fri12)
+        (consecutive fri12 fri13)
+        (consecutive fri13 fri14)
+        (consecutive fri14 fri15)
+        (consecutive fri15 fri16)
+        (consecutive fri16 fri17)
+        (consecutive fri17 fri18)
+        ;(consecutive fri18 )
+
+        (stessoCorso sistemiDigitali_1 sistemiDigitali_2)
+        (stessoCorso sistemiDigitali_1 sistemiDigitali_3)
+
+        (stessoCorso sistemiDigitali_2 sistemiDigitali_1)
+        (stessoCorso sistemiDigitali_2 sistemiDigitali_3)
+
+        (stessoCorso sistemiDigitali_3 sistemiDigitali_1)
+        (stessoCorso sistemiDigitali_3 sistemiDigitali_2)
+
+        (stessoCorso analisi_1 analisi_2)
+        (stessoCorso analisi_1 analisi_3)
+
+        (stessoCorso analisi_2 analisi_1)
+        (stessoCorso analisi_2 analisi_3)
+
+        (stessoCorso analisi_3 analisi_1)
+        (stessoCorso analisi_3 analisi_2)
+
+        (stessoCorso componenti_1 componenti_2)
+        (stessoCorso componenti_1 componenti_3)
+        (stessoCorso componenti_1 componenti_4)
+        (stessoCorso componenti_1 componenti_5)
+        (stessoCorso componenti_1 componenti_6)
+        (stessoCorso componenti_1 componenti_7)
+
+        (stessoCorso componenti_2 componenti_1)
+        (stessoCorso componenti_2 componenti_3)
+        (stessoCorso componenti_2 componenti_4)
+        (stessoCorso componenti_2 componenti_5)
+        (stessoCorso componenti_2 componenti_6)
+        (stessoCorso componenti_2 componenti_7)
+
+        (stessoCorso componenti_3 componenti_1)
+        (stessoCorso componenti_3 componenti_2)
+        (stessoCorso componenti_3 componenti_4)
+        (stessoCorso componenti_3 componenti_5)
+        (stessoCorso componenti_3 componenti_6)
+        (stessoCorso componenti_3 componenti_7)
+
+        (stessoCorso componenti_4 componenti_1)
+        (stessoCorso componenti_4 componenti_2)
+        (stessoCorso componenti_4 componenti_3)
+        (stessoCorso componenti_4 componenti_5)
+        (stessoCorso componenti_4 componenti_6)
+        (stessoCorso componenti_4 componenti_7)
+
+        (stessoCorso componenti_5 componenti_1)
+        (stessoCorso componenti_5 componenti_2)
+        (stessoCorso componenti_5 componenti_3)
+        (stessoCorso componenti_5 componenti_4)
+        (stessoCorso componenti_5 componenti_6)
+        (stessoCorso componenti_5 componenti_7)
+
+        (stessoCorso componenti_6 componenti_1)
+        (stessoCorso componenti_6 componenti_2)
+        (stessoCorso componenti_6 componenti_3)
+        (stessoCorso componenti_6 componenti_4)
+        (stessoCorso componenti_6 componenti_5)
+        (stessoCorso componenti_6 componenti_7)
+        
+        (stessoCorso componenti_7 componenti_1)
+        (stessoCorso componenti_7 componenti_2)
+        (stessoCorso componenti_7 componenti_3)
+        (stessoCorso componenti_7 componenti_4)
+        (stessoCorso componenti_7 componenti_5)
+        (stessoCorso componenti_7 componenti_6)
+
+        (= (total-cost) 0)
+        ;(= (treeHeight) 0)
     )
 
     (:goal (and
-        (fissato sistemiDigitali)
-        (fissato analisi)
-        (fissato componenti)
-        (fissato sistemiQualita)
-        (fissato robotica)
-        (fissato ux)
-        (fissato cybersecurity)     
+        ; (fissato sistemiDigitali)
+        ; (fissato analisi)
+        ; (fissato componenti)
+        ; (fissato sistemiQualita)
+        ; (fissato robotica)
+        ; (fissato ux)
+        ; (fissato cybersecurity)     
+        (fissato sistemiDigitali_1)
+        (fissato sistemiDigitali_2)
+        (fissato sistemiDigitali_3)
+        (fissato analisi_1)
+        (fissato analisi_2)
+        (fissato analisi_3)
+        (fissato componenti_1)
+        (fissato componenti_2)
+        (fissato componenti_3)
+        (fissato componenti_4)
+        (fissato componenti_5)
+        (fissato componenti_6)
+        (fissato componenti_7)
     ))
 
     ;un-comment the following line if metric is needed
 
-    ;costoTotale
-    (:metric minimize (costoTotale))
+    ;total-cost
+    (:metric minimize (total-cost))
 )
