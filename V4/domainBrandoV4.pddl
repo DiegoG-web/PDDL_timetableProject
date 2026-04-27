@@ -8,14 +8,17 @@
         corso
         professore
         aula
-        scdla;studentiCorsoDiLaureaAnno
+        scdla;studentiCorsoDiLaureaAnno 
     )
 
     (:predicates
         (fissato ?c - corso)
         (fasciaOrariaLibera ?f - fasciaOraria)
-        (consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
-        (stessoCorso ?c1 - corso ?c2 - corso)
+        
+        ;(consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
+        (coppiaFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria)
+        ;(stessoCorso ?c1 - corso ?c2 - corso)
+        (coppiaCorso ?c1 - corso ?c2 - corso)
         (triadeFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria)
         (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
         (quartettoFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria)
@@ -83,11 +86,11 @@
             (not (fissato ?c1))
             (not (fissato ?c2))
             (not (= ?c1 ?c2))
-            (stessoCorso ?c1 ?c2)
+            (coppiaCorso ?c1 ?c2)
             
             (fasciaOrariaLibera ?f1)
             (fasciaOrariaLibera ?f2)
-            (consecutive ?f1 ?f2)
+            (coppiafasceorarie ?f1 ?f2)
 
             (insegna ?p ?c1)
             
@@ -136,12 +139,13 @@
             (not (fissato ?c2))
             (not (fissato ?c3))
 
+            ;(or ((triadeCorsi ?c1 ?c2 ?c3) (triadeCorsi ?c1 ?c3 ?c2))) IDEONA
             (triadeCorsi ?c1 ?c2 ?c3)
             (triadeFasceOrarie ?f1 ?f2 ?f3)
 
-            ;(stessoCorso ?c1 ?c2)
-            ;(stessoCorso ?c1 ?c3)
-            ;(stessoCorso ?c2 ?c3); inutile credo, e da rivedere come liste non ordinate
+            ;(coppiaCorso ?c1 ?c2)
+            ;(coppiaCorso ?c1 ?c3)
+            ;(coppiaCorso ?c2 ?c3); inutile credo, e da rivedere come liste non ordinate
             
             (fasciaOrariaLibera ?f1)
             (fasciaOrariaLibera ?f2)
