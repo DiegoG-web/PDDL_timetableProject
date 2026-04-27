@@ -1,5 +1,5 @@
 
-(define (domain domainBrandoV4)
+(define (domain domainBrandoV5)
     ; (:requirements :strips :fluents :durative-actions :timed-initial-literals :typing :conditional-effects :negative-preconditions :duration-inequalities :equality :typing :action-costs)
     (:requirements :fluents :typing :negative-preconditions :action-costs :equality :disjunctive-preconditions)
 
