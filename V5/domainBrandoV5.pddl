@@ -13,7 +13,7 @@
 
     (:predicates
         (fissato ?c - corso)
-        (fasciaOrariaLibera ?f - fasciaOraria)
+        ;(fasciaOrariaLibera ?f - fasciaOraria)
         
         ;(consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
         (coppiaFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria)
@@ -52,7 +52,7 @@
         )
         :precondition (and 
             (not (fissato ?c));il corso non deve essere stato fissato, schedulato
-            (fasciaOrariaLibera ?f)
+            ;(fasciaOrariaLibera ?f)
             ;(<= (costoFasciaOraria ?f) (/ (+(total-cost) 1) (/ (treeHeight) 2))); costoFasciaOraria ?f <= (total-cost+3)/(treeHeight/2)    
             ;DA APPROFONDIRE riduzione del branching factor con soglia di costo dipendente dal total-cost e la profondità
             (insegna ?p ?c)
@@ -63,7 +63,7 @@
         )
         :effect (and 
             (fissato ?c)
-            (not (fasciaOrariaLibera ?f))
+            ;(not (fasciaOrariaLibera ?f))
             (increase (total-cost) (costoFasciaOraria ?f))
             ;(increase (treeHeight) 1)
             (not (profDisponibile ?p ?f))
@@ -88,8 +88,8 @@
             (not (= ?c1 ?c2))
             (coppiaCorso ?c1 ?c2)
             
-            (fasciaOrariaLibera ?f1)
-            (fasciaOrariaLibera ?f2)
+            ; (fasciaOrariaLibera ?f1)
+            ; (fasciaOrariaLibera ?f2)
             (coppiafasceorarie ?f1 ?f2)
 
             (insegna ?p ?c1)
@@ -107,8 +107,8 @@
         :effect (and 
             (fissato ?c1)
             (fissato ?c2)
-            (not (fasciaOrariaLibera ?f1))
-            (not (fasciaOrariaLibera ?f2))
+            ; (not (fasciaOrariaLibera ?f1))
+            ; (not (fasciaOrariaLibera ?f2))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (costoFasciaOraria ?f2)) 2)); socnto di 2
                         
             (not (profDisponibile ?p ?f1))
@@ -143,9 +143,9 @@
             (triadeCorsi ?c1 ?c2 ?c3)
             (triadeFasceOrarie ?f1 ?f2 ?f3)
             
-            (fasciaOrariaLibera ?f1)
-            (fasciaOrariaLibera ?f2)
-            (fasciaOrariaLibera ?f3)
+            ; (fasciaOrariaLibera ?f1)
+            ; (fasciaOrariaLibera ?f2)
+            ; (fasciaOrariaLibera ?f3)
             
             (insegna ?p ?c1)
             
@@ -166,9 +166,9 @@
             (fissato ?c1)
             (fissato ?c2)
             (fissato ?c3)
-            (not (fasciaOrariaLibera ?f1))
-            (not (fasciaOrariaLibera ?f2))
-            (not (fasciaOrariaLibera ?f3))
+            ; (not (fasciaOrariaLibera ?f1))
+            ; (not (fasciaOrariaLibera ?f2))
+            ; (not (fasciaOrariaLibera ?f3))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3))) 3)); socnto di 3
             
             (not (profDisponibile ?p ?f1))
@@ -208,10 +208,10 @@
             (quartettoCorsi ?c1 ?c2 ?c3 ?c4)
             (quartettoFasceOrarie ?f1 ?f2 ?f3 ?f4)
 
-            (fasciaOrariaLibera ?f1)
-            (fasciaOrariaLibera ?f2)
-            (fasciaOrariaLibera ?f3)
-            (fasciaOrariaLibera ?f4)
+            ; (fasciaOrariaLibera ?f1)
+            ; (fasciaOrariaLibera ?f2)
+            ; (fasciaOrariaLibera ?f3)
+            ; (fasciaOrariaLibera ?f4)
             
             (insegna ?p ?c1)
 
@@ -236,10 +236,10 @@
             (fissato ?c2)
             (fissato ?c3)
             (fissato ?c4)
-            (not (fasciaOrariaLibera ?f1))
-            (not (fasciaOrariaLibera ?f2))
-            (not (fasciaOrariaLibera ?f3))
-            (not (fasciaOrariaLibera ?f4))
+            ; (not (fasciaOrariaLibera ?f1))
+            ; (not (fasciaOrariaLibera ?f2))
+            ; (not (fasciaOrariaLibera ?f3))
+            ; (not (fasciaOrariaLibera ?f4))
             (increase (total-cost) (- (+ (costoFasciaOraria ?f4) (+ (costoFasciaOraria ?f1) (+ (costoFasciaOraria ?f2) (costoFasciaOraria ?f3)))) 4)); socnto di 3
             
             (not (profDisponibile ?p ?f1))

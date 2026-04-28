@@ -10,7 +10,8 @@ excel_file = "timetablingTemplate.xlsx"
 sheets = pd.read_excel(excel_file, sheet_name=None) #loads all sheets into a dictionary of DataFrames, like a matrix
 
 compressedCourses = []
-# 1. Extracting Courses, Hours, and Assignments
+profs = []
+# Courses, Hours
 dataFramesCourses = sheets["corsi"]
 for index, row in dataFramesCourses.iterrows():
     compressedCourses = row["corso"]
@@ -19,62 +20,171 @@ for index, row in dataFramesCourses.iterrows():
     #scdla = row["studentiCorsoDiLaureaAnno scdla"]
 
     singleHourCoursePortions = []
+    singleHourCoursePortionsRelatedProfessor = []
+    singleHourCoursePortionsRelatedScdla = []
     for i in range(row["ore settimanali"]):
         singleHourCoursePortions.append(f"{row['corso']}_{i+1}")
+        singleHourCoursePortionsRelatedProfessor.append(f"{row['professore']} {row['corso']}_{i+1}")
+        singleHourCoursePortionsRelatedScdla.append(f"{row['studentiCorsoDiLaureaAnno scdla']} {row['corso']}_{i+1}")
+
+    
+    newLineInitInsegna = ")\n(insegna "
+    initStr += f"(insegna {newLineInitInsegna.join(singleHourCoursePortionsRelatedProfessor)})\n"
+    initStr += "\n"
+
+    newLineInitFrequenta = ")\n(frequenta "
+    initStr += f"(frequenta {newLineInitFrequenta.join(singleHourCoursePortionsRelatedScdla)})\n"
+    initStr += "\n"
 
     newLine = "\n"
     objStr += f"{newLine.join(singleHourCoursePortions)}\n"
+
+    newLineGoal = ")\n(fissato "
+    goalStr += f"(fissato {newLineGoal.join(singleHourCoursePortions)})\n"
+objStr += "- corso\n\n"
+
+# (profDisponibile Sisinni mon08)
+#         (profDisponibile Sisinni mon09)
+#         (profDisponibile Sisinni mon10)
+#         (profDisponibile Sisinni mon11)
+#         (profDisponibile Sisinni mon12)
+#         (profDisponibile Sisinni mon13)
+#         (profDisponibile Sisinni mon14)
+#         (profDisponibile Sisinni mon15)
+#         (profDisponibile Sisinni mon16)
+#         (profDisponibile Sisinni mon17)
+#         (profDisponibile Sisinni mon18)
+
+dataFramesDisponibilitàProfessori = sheets["disponibilitàProfessori"]
+for index, row in dataFramesDisponibilitàProfessori.iterrows():
+    objStr += f"{row['professore']}\n"
+
+    disponibilità = row.drop('professore') 
     
-    # Here you can generate your PDDL objects:
-    # e.g. for i in range(1, total_hours + 1):
-    # print(f"{course_base_name}_{i}")
-objStr += "- corso\n"
-# # 2. Extracting Availability (e.g., Professor Availability)
-# df_prof_avail = sheets["3_Prof_Availability"]
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(profDisponibile {row['professore']} {fasciaOraria})\n"
+objStr += "- professore\n\n"
+initStr += "\n"
 
-# # Set the Professor name as the index to easily lookup timeslots
-# df_prof_avail.set_index('Professor', inplace=True)
+dataFramesDisponibilitàAule = sheets["disponibilitàAule"]
+for index, row in dataFramesDisponibilitàAule.iterrows():
+    objStr += f"{row['aula']}\n"
+    
+    disponibilità = row.drop('aula') 
+    
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(aulaDisponibile {row['aula']} {fasciaOraria})\n"
+objStr += "- aula\n\n"
+initStr += "\n"
 
-# for prof_name in df_prof_avail.index:
-#     for timeslot in df_prof_avail.columns:
-#         is_available = df_prof_avail.loc[prof_name, timeslot]
-        
-#         if is_available == 1:
-#             # Generate PDDL: (profDisponibile {prof_name} {timeslot})
-#             pass
+dataFramesDisponibilitàScdla = sheets["disponibilitàScdla"]
+for index, row in dataFramesDisponibilitàScdla.iterrows():
+    objStr += f"{row['scdla']}\n"
+    
+    disponibilità = row.drop('scdla') 
+    
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(scdlaDisponibile {row['scdla']} {fasciaOraria})\n"
+objStr += "- scdla\n"
+initStr += "\n"
 
-
-
-
-# #multi-line f-strings
-# # 1. Build the Objects string
-# obj_str = f"{robot_name} - robot\n    "
-# obj_str += f"{' '.join(locations)} - location\n    "
-# obj_str += f"{' '.join(packages)} - package"
-
-# # 2. Build the Init string
-# init_str = f"(at {robot_name} {robot_start})\n    "
-# for pkg, loc in package_destinations.items():
-#     # Let's assume packages start where the robot starts for this example
-#     init_str += f"(at {pkg} {robot_start})\n    "
-
-# # 3. Build the Goal string
-# goal_str = " ".join([f"(at {pkg} {dest})" for pkg, dest in package_destinations.items()])
-
-# 4. Final Assembly using a multi-line f-string
+# multi-line f-string
 problemContent = f"""(define (problem {problem}) (:domain {domain})
 (:objects
 {objStr}
+mon08
+mon09
+mon10
+mon11
+mon12
+mon13
+mon14
+mon15
+mon16
+mon17
+mon18
+
+tue08
+tue09
+tue10
+tue11
+tue12
+tue13
+tue14
+tue15
+tue16
+tue17
+tue18
+
+wed08
+wed09
+wed10
+wed11
+wed12
+wed13
+wed14
+wed15
+wed16
+wed17
+wed18
+
+thu08
+thu09
+thu10
+thu11
+thu12
+thu13
+thu14
+thu15
+thu16
+thu17
+thu18
+
+fri08
+fri09
+fri10
+fri11
+fri12
+fri13
+fri14
+fri15
+fri16
+fri17
+fri18 - fasciaOraria
 )
 
 (:init
-
+{initStr}
 )
 
 (:goal (and
-
+{goalStr}
 ))
 (:metric minimize (total-cost))
 )
 """
 print(problemContent)
+
+
+"""     (fissato ?c - corso)
+        (fasciaOrariaLibera ?f - fasciaOraria)
+        
+        ;(consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
+        (coppiaFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria)
+        ;(stessoCorso ?c1 - corso ?c2 - corso)
+        (coppiaCorso ?c1 - corso ?c2 - corso)
+        (triadeFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria)
+        (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
+        (quartettoFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria)
+        (quartettoCorsi ?c1 - corso ?c2 - corso ?c3 - corso ?c4 - corso)
+
+        (insegna ?p - professore ?c - corso)
+        (profDisponibile ?p - professore ?f - fasciaOraria)
+
+        (aulaDisponibile ?a - aula ?f - fasciaOraria);introdurre una function per la capienza?
+
+        (frequenta ?s - scdla ?c - corso)
+        (scdlaDisponibile ?s - scdla ?f - fasciaOraria)"""
