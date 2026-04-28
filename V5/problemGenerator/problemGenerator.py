@@ -43,21 +43,53 @@ for index, row in dataFramesCourses.iterrows():
     goalStr += f"(fissato {newLineGoal.join(singleHourCoursePortions)})\n"
 objStr += "- corso\n\n"
 
+# (profDisponibile Sisinni mon08)
+#         (profDisponibile Sisinni mon09)
+#         (profDisponibile Sisinni mon10)
+#         (profDisponibile Sisinni mon11)
+#         (profDisponibile Sisinni mon12)
+#         (profDisponibile Sisinni mon13)
+#         (profDisponibile Sisinni mon14)
+#         (profDisponibile Sisinni mon15)
+#         (profDisponibile Sisinni mon16)
+#         (profDisponibile Sisinni mon17)
+#         (profDisponibile Sisinni mon18)
 
 dataFramesDisponibilitàProfessori = sheets["disponibilitàProfessori"]
 for index, row in dataFramesDisponibilitàProfessori.iterrows():
     objStr += f"{row['professore']}\n"
+
+    disponibilità = row.drop('professore') 
+    
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(profDisponibile {row['professore']} {fasciaOraria})\n"
 objStr += "- professore\n\n"
+initStr += "\n"
 
 dataFramesDisponibilitàAule = sheets["disponibilitàAule"]
 for index, row in dataFramesDisponibilitàAule.iterrows():
     objStr += f"{row['aula']}\n"
+    
+    disponibilità = row.drop('aula') 
+    
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(aulaDisponibile {row['aula']} {fasciaOraria})\n"
 objStr += "- aula\n\n"
+initStr += "\n"
 
 dataFramesDisponibilitàScdla = sheets["disponibilitàScdla"]
 for index, row in dataFramesDisponibilitàScdla.iterrows():
     objStr += f"{row['scdla']}\n"
+    
+    disponibilità = row.drop('scdla') 
+    
+    for fasciaOraria, valore in disponibilità.items():
+        if valore == 1:
+            initStr += f"(scdlaDisponibile {row['scdla']} {fasciaOraria})\n"
 objStr += "- scdla\n"
+initStr += "\n"
 
 # multi-line f-string
 problemContent = f"""(define (problem {problem}) (:domain {domain})
