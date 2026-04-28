@@ -70,7 +70,7 @@
         ux
         cybersecurity - corso
         ;secodna aula
-        laboratorioRaspberry - corso
+        ;laboratorioRaspberry - corso
 
         ;docenti
         sisinni
@@ -83,14 +83,27 @@
 
         ;aule
         aula1
-        aula2 - aula
+        aula2
+        aula3 - aula
 
         ; gruppoITID1
         ; gruppoITID2
         gruppoITID3 - gruppoStudenti
-        ; gruppoInformatica1
-        ; gruppoInformatica2
-        ;gruppoInformatica3 - gruppoStudenti
+
+        ; dati nuovi
+        ;elettronicaGenerale
+        ;sistemiOperativi
+        linguaggiProgrammazione
+        basiDiDati
+        ingegneriaSoftware - corso
+
+        ;flammini
+        ;baroni
+        lamperti
+        rula
+        zanella - docente
+
+        gruppoInformatica3 - gruppoStudenti
     )
 
 
@@ -104,7 +117,7 @@
         (= (durataCorso robotica) 4)
         (= (durataCorso ux) 3)
         (= (durataCorso cybersecurity) 5)
-        (= (durataCorso laboratorioRaspberry) 2)
+        ;(= (durataCorso laboratorioRaspberry) 32)
 
         (occupata aula1 cambioGiorno1)
         (occupata aula1 cambioGiorno2)
@@ -116,6 +129,11 @@
         (occupata aula2 cambioGiorno3)
         (occupata aula2 cambioGiorno4)
         (occupata aula2 cambioGiorno5)
+        (occupata aula3 cambioGiorno1)
+        (occupata aula3 cambioGiorno2)
+        (occupata aula3 cambioGiorno3)
+        (occupata aula3 cambioGiorno4)
+        (occupata aula3 cambioGiorno5)
 
         (oraCorrente mon08)
         
@@ -229,10 +247,11 @@
         (insegna barricelli ux)
         (insegna gringoli cybersecurity)
 
-        (insegna sisinni laboratorioRaspberry)
+        ;(insegna sisinni laboratorioRaspberry)
 
         (aulaAttiva aula1)
         (prossimaAula aula1 aula2)
+        (prossimaAula aula2 aula3)
         (inizioSettimana mon08)
         (fineSettimana cambioGiorno5)
 
@@ -243,7 +262,26 @@
         (frequenta gruppoITID3 robotica)
         (frequenta gruppoITID3 ux)
         (frequenta gruppoITID3 cybersecurity)
-        (frequenta gruppoITID3 laboratorioRaspberry)
+        ;(frequenta gruppoITID3 laboratorioRaspberry)
+
+        ;dati nuovi 
+        ;(= (durataCorso elettronicaGenerale) 9)
+        ;(= (durataCorso sistemiOperativi) 5)
+        (= (durataCorso linguaggiProgrammazione) 5)
+        (= (durataCorso basiDiDati) 5)
+        (= (durataCorso ingegneriaSoftware) 5)
+
+        ;(insegna flammini elettronicaGenerale)
+        ;(insegna baroni sistemiOperativi)
+        (insegna lamperti linguaggiProgrammazione)
+        (insegna rula basiDiDati)
+        (insegna zanella ingegneriaSoftware)
+
+        ;(frequenta gruppoInformatica3 elettronicaGenerale)
+        ;(frequenta gruppoInformatica3 sistemiOperativi)
+        (frequenta gruppoInformatica3 linguaggiProgrammazione)
+        (frequenta gruppoInformatica3 basiDiDati)
+        (frequenta gruppoInformatica3 ingegneriaSoftware)
 
     )
 
@@ -255,7 +293,15 @@
         (= (durataCorso robotica) 0)
         (= (durataCorso ux) 0)
         (= (durataCorso cybersecurity) 0)
-        (= (durataCorso laboratorioRaspberry) 0)
+        ;(= (durataCorso laboratorioRaspberry) 0)
+
+        ;dati nuovi 
+
+        ;(= (durataCorso elettronicaGenerale) 0)
+        ;(= (durataCorso sistemiOperativi) 0)
+        (= (durataCorso linguaggiProgrammazione) 0)
+        (= (durataCorso basiDiDati) 0)
+        (= (durataCorso ingegneriaSoftware) 0)
     ))
 
     ;costoAzione
