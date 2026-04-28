@@ -69,6 +69,8 @@
         robotica
         ux
         cybersecurity - corso
+        ;secodna aula
+        laboratorioRaspberry - corso
 
         ;docenti
         sisinni
@@ -78,6 +80,10 @@
         tampalini
         barricelli
         gringoli - docente
+
+        ;aule
+        aula1
+        aula2 - aula
     )
 
     (:init
@@ -93,12 +99,18 @@
         (= (durataCorso robotica) 4)
         (= (durataCorso ux) 3)
         (= (durataCorso cybersecurity) 5)
+        (= (durataCorso laboratorioRaspberry) 32)
 
-        (occupata cambioGiorno1)
-        (occupata cambioGiorno2)
-        (occupata cambioGiorno3)
-        (occupata cambioGiorno4)
-        (occupata cambioGiorno5)
+        (occupata aula1 cambioGiorno1)
+        (occupata aula1 cambioGiorno2)
+        (occupata aula1 cambioGiorno3)
+        (occupata aula1 cambioGiorno4)
+        (occupata aula1 cambioGiorno5)
+        (occupata aula2 cambioGiorno1)
+        (occupata aula2 cambioGiorno2)
+        (occupata aula2 cambioGiorno3)
+        (occupata aula2 cambioGiorno4)
+        (occupata aula2 cambioGiorno5)
 
         (oraCorrente mon08)
         
@@ -211,6 +223,14 @@
         (insegna tampalini robotica)
         (insegna barricelli ux)
         (insegna gringoli cybersecurity)
+
+        (insegna sisinni laboratorioRaspberry)
+
+        (aulaAttiva aula1)
+        (prossimaAula aula1 aula2)
+        (inizioSettimana mon08)
+        (fineSettimana cambioGiorno5)
+
     )
 
     (:goal (and
@@ -221,6 +241,7 @@
         (= (durataCorso robotica) 0)
         (= (durataCorso ux) 0)
         (= (durataCorso cybersecurity) 0)
+        (= (durataCorso laboratorioRaspberry) 0)
     ))
 
     ;costoAzione
