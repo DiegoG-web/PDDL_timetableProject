@@ -260,7 +260,9 @@ fri18 - fasciaOraria
 (= (costoFasciaOraria fri15) 8)
 (= (costoFasciaOraria fri16) 9)
 (= (costoFasciaOraria fri17) 10)
-(= (costoFasciaOraria fri18) 11) 
+(= (costoFasciaOraria fri18) 11)
+
+(= (total-cost) 0)
 )
 
 (:goal (and
