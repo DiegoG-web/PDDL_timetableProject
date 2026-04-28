@@ -1,6 +1,6 @@
 ;Header and description   ctrl + ù per commentare
 
-(define (domain domainDiegoV3)
+(define (domain domainDiegoV4)
 
 ;remove requirements that are not needed
 (:requirements :typing :negative-preconditions :fluents) ;necessary to remove warnings
@@ -10,6 +10,7 @@
     corso
     docente
     aula
+    gruppoStudenti
 )
 
 ; un-comment following line if constants are needed
@@ -20,6 +21,7 @@
     (oraCorrente ?f - fasciaOraria)
     (docenteOccupato ?d - docente ?f - fasciaOraria)
     (aulaAttiva ?a - aula)
+    (gruppoStudentiOccupato ?g - gruppoStudenti ?f - fasciaOraria)
 
     (prossimaAula ?a1 ?a2 - aula)
     (inizioSettimana ?f - fasciaOraria)
@@ -28,6 +30,7 @@
     (fineGiornata ?f1 - fasciaOraria ?f2 - fasciaOraria)
     (pausaPranzo ?f1 - fasciaOraria ?f2 - fasciaOraria)
     (insegna ?d - docente ?c - corso)
+    (frequenta ?g - gruppoStudenti ?c - corso)
 )
 
 
@@ -37,7 +40,7 @@
 )
 
 (:action assegna2ore
-    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?d - docente ?a - aula)
+    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?d - docente ?a - aula ?gs - gruppoStudenti)
     :precondition (and 
         (oraCorrente ?f1)
         (next ?f1 ?f2)
@@ -50,6 +53,11 @@
         (not (docenteOccupato ?d ?f2))
 
         (aulaAttiva ?a)
+
+        (frequenta ?gs ?c)
+        (not (gruppoStudentiOccupato ?gs ?f1))
+        (not (gruppoStudentiOccupato ?gs ?f2))
+
     )
     :effect (and 
         (occupata ?a ?f1) 
@@ -60,10 +68,12 @@
         (oraCorrente ?f2)
         (docenteOccupato ?d ?f1)
         (docenteOccupato ?d ?f2)
+        (gruppoStudentiOccupato ?gs ?f1)
+        (gruppoStudentiOccupato ?gs ?f2)
     )
 )
 (:action assegna3ore
-    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?d - docente ?a - aula)
+    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?d - docente ?a - aula ?gs - gruppoStudenti)
     :precondition (and 
         (oraCorrente ?f1)
         (next ?f1 ?f2)
@@ -79,6 +89,11 @@
         (not (docenteOccupato ?d ?f3))
 
         (aulaAttiva ?a)
+
+        (frequenta ?gs ?c)
+        (not (gruppoStudentiOccupato ?gs ?f1))
+        (not (gruppoStudentiOccupato ?gs ?f2))
+        (not (gruppoStudentiOccupato ?gs ?f3))
     )
     :effect (and 
         (occupata ?a ?f1) 
@@ -92,10 +107,14 @@
         (docenteOccupato ?d ?f1)
         (docenteOccupato ?d ?f2)
         (docenteOccupato ?d ?f3)
+
+        (gruppoStudentiOccupato ?gs ?f1)
+        (gruppoStudentiOccupato ?gs ?f2)
+        (gruppoStudentiOccupato ?gs ?f3)
     )
 )
 (:action assegna4ore
-    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria ?d - docente ?a - aula)
+    :parameters (?c - corso ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria ?d - docente ?a - aula ?gs - gruppoStudenti)
     :precondition (and 
         (oraCorrente ?f1)
         (next ?f1 ?f2)
@@ -113,6 +132,12 @@
         (not (docenteOccupato ?d ?f4))
         
         (aulaAttiva ?a)
+
+        (frequenta ?gs ?c)
+        (not (gruppoStudentiOccupato ?gs ?f1))
+        (not (gruppoStudentiOccupato ?gs ?f2))
+        (not (gruppoStudentiOccupato ?gs ?f3))
+        (not (gruppoStudentiOccupato ?gs ?f4))
     )
     :effect (and 
         (occupata ?a ?f1) 
@@ -127,6 +152,11 @@
         (docenteOccupato ?d ?f2)
         (docenteOccupato ?d ?f3)
         (docenteOccupato ?d ?f4)
+
+        (gruppoStudentiOccupato ?gs ?f1)
+        (gruppoStudentiOccupato ?gs ?f2)
+        (gruppoStudentiOccupato ?gs ?f3)
+        (gruppoStudentiOccupato ?gs ?f4)
     )
 )
     (:action scorriTempo

@@ -1,4 +1,4 @@
-(define (problem problemDiegoV3) (:domain domainDiegoV3)
+(define (problem problemDiegoV4) (:domain domainDiegoV4)
     (:objects 
         cambioGiorno1
         cambioGiorno2
@@ -84,12 +84,17 @@
         ;aule
         aula1
         aula2 - aula
+
+        ; gruppoITID1
+        ; gruppoITID2
+        gruppoITID3 - gruppoStudenti
+        ; gruppoInformatica1
+        ; gruppoInformatica2
+        ;gruppoInformatica3 - gruppoStudenti
     )
 
+
     (:init
-        ;(next mon11 mon12Pranzo)
-        ;(next mon12Pranzo mon13)
-        ;(next mon18 cambioGiorno1)
 
         (= (costoAzione) 0)
         (= (durataCorso sistemiDigitali) 3)
@@ -99,7 +104,7 @@
         (= (durataCorso robotica) 4)
         (= (durataCorso ux) 3)
         (= (durataCorso cybersecurity) 5)
-        (= (durataCorso laboratorioRaspberry) 32)
+        (= (durataCorso laboratorioRaspberry) 2)
 
         (occupata aula1 cambioGiorno1)
         (occupata aula1 cambioGiorno2)
@@ -230,6 +235,15 @@
         (prossimaAula aula1 aula2)
         (inizioSettimana mon08)
         (fineSettimana cambioGiorno5)
+
+        (frequenta gruppoITID3 sistemiDigitali)
+        (frequenta gruppoITID3 analisi)
+        (frequenta gruppoITID3 componenti)
+        (frequenta gruppoITID3 sistemiQualita)
+        (frequenta gruppoITID3 robotica)
+        (frequenta gruppoITID3 ux)
+        (frequenta gruppoITID3 cybersecurity)
+        (frequenta gruppoITID3 laboratorioRaspberry)
 
     )
 
