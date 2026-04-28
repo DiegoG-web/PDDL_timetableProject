@@ -18,7 +18,7 @@
         ;(consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
         (coppiaFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria)
         ;(stessoCorso ?c1 - corso ?c2 - corso)
-        (coppiaCorso ?c1 - corso ?c2 - corso)
+        (coppiaCorsi ?c1 - corso ?c2 - corso)
         (triadeFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria)
         (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
         (quartettoFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria)
@@ -86,7 +86,7 @@
             (not (fissato ?c1))
             (not (fissato ?c2))
             (not (= ?c1 ?c2))
-            (coppiaCorso ?c1 ?c2)
+            (coppiaCorsi ?c1 ?c2)
             
             ; (fasciaOrariaLibera ?f1)
             ; (fasciaOrariaLibera ?f2)
