@@ -91,14 +91,14 @@
         gruppoITID3 - gruppoStudenti
 
         ; dati nuovi
-        ;elettronicaGenerale
-        ;sistemiOperativi
+        elettronicaGenerale
+        sistemiOperativi
         linguaggiProgrammazione
         basiDiDati
         ingegneriaSoftware - corso
 
-        ;flammini
-        ;baroni
+        flammini
+        baroni
         lamperti
         rula
         zanella - docente
@@ -265,20 +265,20 @@
         ;(frequenta gruppoITID3 laboratorioRaspberry)
 
         ;dati nuovi 
-        ;(= (durataCorso elettronicaGenerale) 9)
-        ;(= (durataCorso sistemiOperativi) 5)
+        (= (durataCorso elettronicaGenerale) 9)
+        (= (durataCorso sistemiOperativi) 5)
         (= (durataCorso linguaggiProgrammazione) 5)
         (= (durataCorso basiDiDati) 5)
         (= (durataCorso ingegneriaSoftware) 5)
 
-        ;(insegna flammini elettronicaGenerale)
-        ;(insegna baroni sistemiOperativi)
+        (insegna flammini elettronicaGenerale)
+        (insegna baroni sistemiOperativi)
         (insegna lamperti linguaggiProgrammazione)
         (insegna rula basiDiDati)
         (insegna zanella ingegneriaSoftware)
 
-        ;(frequenta gruppoInformatica3 elettronicaGenerale)
-        ;(frequenta gruppoInformatica3 sistemiOperativi)
+        (frequenta gruppoInformatica3 elettronicaGenerale)
+        (frequenta gruppoInformatica3 sistemiOperativi)
         (frequenta gruppoInformatica3 linguaggiProgrammazione)
         (frequenta gruppoInformatica3 basiDiDati)
         (frequenta gruppoInformatica3 ingegneriaSoftware)
@@ -297,8 +297,8 @@
 
         ;dati nuovi 
 
-        ;(= (durataCorso elettronicaGenerale) 0)
-        ;(= (durataCorso sistemiOperativi) 0)
+        (= (durataCorso elettronicaGenerale) 0)
+        (= (durataCorso sistemiOperativi) 0)
         (= (durataCorso linguaggiProgrammazione) 0)
         (= (durataCorso basiDiDati) 0)
         (= (durataCorso ingegneriaSoftware) 0)

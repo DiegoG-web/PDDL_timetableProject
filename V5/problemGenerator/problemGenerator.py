@@ -74,18 +74,6 @@ def main():
         goalStr += f"(fissato {newLineGoal.join(singleHourCoursePortions)})\n"
     objStr += "- corso\n\n"
 
-    # (profDisponibile Sisinni mon08)
-    #         (profDisponibile Sisinni mon09)
-    #         (profDisponibile Sisinni mon10)
-    #         (profDisponibile Sisinni mon11)
-    #         (profDisponibile Sisinni mon12)
-    #         (profDisponibile Sisinni mon13)
-    #         (profDisponibile Sisinni mon14)
-    #         (profDisponibile Sisinni mon15)
-    #         (profDisponibile Sisinni mon16)
-    #         (profDisponibile Sisinni mon17)
-    #         (profDisponibile Sisinni mon18)
-
     dataFramesDisponibilitàProfessori = sheets["disponibilitàProfessori"]
     for index, row in dataFramesDisponibilitàProfessori.iterrows():
         objStr += f"{row['professore']}\n"
