@@ -1,23 +1,17 @@
-(define (problem problemDiegoV4) (:domain domainDiegoV4)
-    (:objects 
-        cambioGiorno1
-        cambioGiorno2
-        cambioGiorno3
-        cambioGiorno4
-        cambioGiorno5
+(define (problem problemDiegoV5) (:domain domainDiegoV5)
+    (:objects
 
         mon08
         mon09
         mon10
         mon11
-        ;mon12Pranzo
         mon13
         mon14
         mon15
         mon16
         mon17
         mon18
-
+        cambioGiorno1
         tue08
         tue09
         tue10
@@ -28,7 +22,7 @@
         tue16
         tue17
         tue18
-
+        cambioGiorno2
         wed08
         wed09
         wed10
@@ -39,7 +33,7 @@
         wed16
         wed17
         wed18
-
+        cambioGiorno3
         thu08
         thu09
         thu10
@@ -50,7 +44,7 @@
         thu16
         thu17
         thu18
-
+        cambioGiorno4
         fri08
         fri09
         fri10
@@ -60,7 +54,8 @@
         fri15
         fri16
         fri17
-        fri18 - fasciaOraria
+        fri18
+        cambioGiorno5 - fasciaOraria
 
         sistemiDigitali
         analisi
@@ -68,20 +63,27 @@
         sistemiQualita
         robotica
         ux
-        cybersecurity - corso
-        ;secodna aula
+        cybersecurity
         ;laboratorioRaspberry - corso
+        elettronicaGenerale
+        sistemiOperativi
+        linguaggiProgrammazione
+        basiDiDati - corso
+        ;ingegneriaSoftware - corso
 
-        ;docenti
         sisinni
         kovarik
         bau
         serpelloni
         tampalini
         barricelli
-        gringoli - docente
+        gringoli
+        flammini
+        baroni
+        lamperti
+        rula -docente
+        ;zanella - docente
 
-        ;aule
         aula1
         aula2
         aula3 - aula
@@ -89,21 +91,8 @@
         ; gruppoITID1
         ; gruppoITID2
         gruppoITID3 - gruppoStudenti
-
-        ; dati nuovi
-        elettronicaGenerale
-        sistemiOperativi
-        linguaggiProgrammazione
-        basiDiDati
-        ingegneriaSoftware - corso
-
-        flammini
-        baroni
-        lamperti
-        rula
-        zanella - docente
-
         gruppoInformatica3 - gruppoStudenti
+
     )
 
 
@@ -117,7 +106,12 @@
         (= (durataCorso robotica) 4)
         (= (durataCorso ux) 3)
         (= (durataCorso cybersecurity) 5)
-        ;(= (durataCorso laboratorioRaspberry) 32)
+        ;(= (durataCorso laboratorioRaspberry) 12)
+        (= (durataCorso elettronicaGenerale) 9)
+        (= (durataCorso sistemiOperativi) 5)
+        (= (durataCorso linguaggiProgrammazione) 5)
+        (= (durataCorso basiDiDati) 5)
+        ;(= (durataCorso ingegneriaSoftware) 5)
 
         (occupata aula1 cambioGiorno1)
         (occupata aula1 cambioGiorno2)
@@ -136,6 +130,11 @@
         (occupata aula3 cambioGiorno5)
 
         (oraCorrente mon08)
+        (inizioSettimana mon08)
+        (aulaAttiva aula1)
+        (prossimaAula aula1 aula2)
+        (prossimaAula aula2 aula3)
+        (fineSettimana cambioGiorno5)
         
         (next mon08 mon09)
         (next mon09 mon10)
@@ -246,14 +245,12 @@
         (insegna tampalini robotica)
         (insegna barricelli ux)
         (insegna gringoli cybersecurity)
-
         ;(insegna sisinni laboratorioRaspberry)
-
-        (aulaAttiva aula1)
-        (prossimaAula aula1 aula2)
-        (prossimaAula aula2 aula3)
-        (inizioSettimana mon08)
-        (fineSettimana cambioGiorno5)
+        (insegna flammini elettronicaGenerale)
+        (insegna baroni sistemiOperativi)
+        (insegna lamperti linguaggiProgrammazione)
+        (insegna rula basiDiDati)
+        ;(insegna zanella ingegneriaSoftware)
 
         (frequenta gruppoITID3 sistemiDigitali)
         (frequenta gruppoITID3 analisi)
@@ -263,25 +260,11 @@
         (frequenta gruppoITID3 ux)
         (frequenta gruppoITID3 cybersecurity)
         ;(frequenta gruppoITID3 laboratorioRaspberry)
-
-        ;dati nuovi 
-        (= (durataCorso elettronicaGenerale) 9)
-        (= (durataCorso sistemiOperativi) 5)
-        (= (durataCorso linguaggiProgrammazione) 5)
-        (= (durataCorso basiDiDati) 5)
-        (= (durataCorso ingegneriaSoftware) 5)
-
-        (insegna flammini elettronicaGenerale)
-        (insegna baroni sistemiOperativi)
-        (insegna lamperti linguaggiProgrammazione)
-        (insegna rula basiDiDati)
-        (insegna zanella ingegneriaSoftware)
-
         (frequenta gruppoInformatica3 elettronicaGenerale)
         (frequenta gruppoInformatica3 sistemiOperativi)
         (frequenta gruppoInformatica3 linguaggiProgrammazione)
         (frequenta gruppoInformatica3 basiDiDati)
-        (frequenta gruppoInformatica3 ingegneriaSoftware)
+        ;(frequenta gruppoInformatica3 ingegneriaSoftware)
 
     )
 
@@ -294,15 +277,13 @@
         (= (durataCorso ux) 0)
         (= (durataCorso cybersecurity) 0)
         ;(= (durataCorso laboratorioRaspberry) 0)
-
-        ;dati nuovi 
-
         (= (durataCorso elettronicaGenerale) 0)
         (= (durataCorso sistemiOperativi) 0)
         (= (durataCorso linguaggiProgrammazione) 0)
         (= (durataCorso basiDiDati) 0)
-        (= (durataCorso ingegneriaSoftware) 0)
+        ;(= (durataCorso ingegneriaSoftware) 0)
     ))
+    
 
     ;costoAzione
     (:metric minimize (costoAzione))

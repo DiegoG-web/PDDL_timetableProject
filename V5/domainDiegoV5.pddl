@@ -1,6 +1,6 @@
 ;Header and description   ctrl + ù per commentare
 
-(define (domain domainDiegoV4)
+(define (domain domainDiegoV5)
 
 ;remove requirements that are not needed
 (:requirements :typing :negative-preconditions :fluents) ;necessary to remove warnings
@@ -16,25 +16,24 @@
 ; un-comment following line if constants are needed
 ;(:constants )
 
-(:predicates ;i primi 2 influenzano il numero di stati, gli altri non vengono modificati quindi influiscono meno
+(:predicates ;i primi influenzano il numero di stati, gli altri non vengono modificati quindi influiscono meno
     (occupata ?a - aula ?f - fasciaOraria) 
     (oraCorrente ?f - fasciaOraria)
-    (docenteOccupato ?d - docente ?f - fasciaOraria)
     (aulaAttiva ?a - aula)
+    (docenteOccupato ?d - docente ?f - fasciaOraria)
     (gruppoStudentiOccupato ?g - gruppoStudenti ?f - fasciaOraria)
 
-    (prossimaAula ?a1 ?a2 - aula)
     (inizioSettimana ?f - fasciaOraria)
     (fineSettimana ?f - fasciaOraria)
     (next ?f1 ?f2 - fasciaOraria)
     (fineGiornata ?f1 - fasciaOraria ?f2 - fasciaOraria)
     (pausaPranzo ?f1 - fasciaOraria ?f2 - fasciaOraria)
+    (prossimaAula ?a1 ?a2 - aula)
     (insegna ?d - docente ?c - corso)
     (frequenta ?g - gruppoStudenti ?c - corso)
 )
 
-
-(:functions ;todo: define numeric functions here
+(:functions
     (durataCorso ?c - corso)
     (costoAzione)
 )
@@ -47,17 +46,13 @@
         (not (occupata ?a ?f1))
         (not (occupata ?a ?f2))
         (>= (durataCorso ?c) 2)
-
+        (aulaAttiva ?a)
         (insegna ?d ?c)
         (not (docenteOccupato ?d ?f1))
         (not (docenteOccupato ?d ?f2))
-
-        (aulaAttiva ?a)
-
         (frequenta ?gs ?c)
         (not (gruppoStudentiOccupato ?gs ?f1))
         (not (gruppoStudentiOccupato ?gs ?f2))
-
     )
     :effect (and 
         (occupata ?a ?f1) 
@@ -82,14 +77,11 @@
         (not (occupata ?a ?f2))
         (not (occupata ?a ?f3))
         (>= (durataCorso ?c) 3)
-
+        (aulaAttiva ?a)
         (insegna ?d ?c)
         (not (docenteOccupato ?d ?f1))
         (not (docenteOccupato ?d ?f2))
         (not (docenteOccupato ?d ?f3))
-
-        (aulaAttiva ?a)
-
         (frequenta ?gs ?c)
         (not (gruppoStudentiOccupato ?gs ?f1))
         (not (gruppoStudentiOccupato ?gs ?f2))
@@ -103,11 +95,9 @@
         (increase (costoAzione) 3)
         (not (oraCorrente ?f1))
         (oraCorrente ?f3)
-
         (docenteOccupato ?d ?f1)
         (docenteOccupato ?d ?f2)
         (docenteOccupato ?d ?f3)
-
         (gruppoStudentiOccupato ?gs ?f1)
         (gruppoStudentiOccupato ?gs ?f2)
         (gruppoStudentiOccupato ?gs ?f3)
@@ -125,14 +115,12 @@
         (not (occupata ?a ?f3))
         (not (occupata ?a ?f4))
         (>= (durataCorso ?c) 4)
+        (aulaAttiva ?a)
         (insegna ?d ?c)
         (not (docenteOccupato ?d ?f1))
         (not (docenteOccupato ?d ?f2))
         (not (docenteOccupato ?d ?f3))
         (not (docenteOccupato ?d ?f4))
-        
-        (aulaAttiva ?a)
-
         (frequenta ?gs ?c)
         (not (gruppoStudentiOccupato ?gs ?f1))
         (not (gruppoStudentiOccupato ?gs ?f2))
@@ -152,7 +140,6 @@
         (docenteOccupato ?d ?f2)
         (docenteOccupato ?d ?f3)
         (docenteOccupato ?d ?f4)
-
         (gruppoStudentiOccupato ?gs ?f1)
         (gruppoStudentiOccupato ?gs ?f2)
         (gruppoStudentiOccupato ?gs ?f3)
@@ -210,7 +197,4 @@
         (aulaAttiva ?a2)
     )
 )
-
-
-
 )
