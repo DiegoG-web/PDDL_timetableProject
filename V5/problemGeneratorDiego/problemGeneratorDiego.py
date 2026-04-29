@@ -1,291 +1,173 @@
 import pandas as pd
-import itertools
+import os
 from datetime import datetime
 
-def generateCourseCombinations(predicateName, elements, length):
-    if len(elements) < length:
-        return ""
-    courseCombinationsStr = ""
-    #unordered combinations of specific lengths from a given set.
-    # order does not matter
-    combinations = itertools.combinations(elements, length)
-    
-    for combination in combinations:
-        # build a line
-        #singleLine = f"({predicateName} {" ".join(map(str, combination))})\n"
-        singleLine = f"({predicateName} {' '.join(map(str, combination))})\n"
-        courseCombinationsStr += singleLine
-    return courseCombinationsStr + "\n"
-
-def generateFasceOrarieWindows(predicateName, elements, length):
-    fasceOrarieWindowsStr = ""
-    for i in range(len(elements) - length + 1):
-        window = elements[i:i + length]
-        
-        singleLine = f"({predicateName} {' '.join(map(str, window))})\n"
-        fasceOrarieWindowsStr += singleLine
-    return fasceOrarieWindowsStr + "\n"
-
 def main():
-    problem = "problemBrandoV5"
-    domain = "domainBrandoV5"
+    problem = "problemDiegoV5"
+    domain = "domainDiegoV5"
     objStr = ""
     initStr = ""
     goalStr = ""
 
-    excel_file = "timetablingTemplate.xlsx"
-    sheets = pd.read_excel(excel_file, sheet_name=None) #loads all sheets into a dictionary of DataFrames, like a matrix
+    excel_file = "timetablingTemplateDiego.xlsx"
+    sheets = pd.read_excel(excel_file, sheet_name=None)
 
-    compressedCourses = []
-    profs = []
-    # Courses, Hours
+    # --- 1. CORSI ---
+    listaCorsi = []
     dataFramesCourses = sheets["corsi"]
     for index, row in dataFramesCourses.iterrows():
-        compressedCourses = row["corso"]
-        totalHours = row["ore settimanali"]
-        #prof = row["professore"]
-        #scdla = row["studentiCorsoDiLaureaAnno scdla"]
+        corso = row["corso"]
+        ore = row["ore settimanali"]
+        prof = row["professore"]
+        gruppo = row["gruppoStudenti"]
 
-        singleHourCoursePortions = []
-        singleHourCoursePortionsRelatedProfessor = []
-        singleHourCoursePortionsRelatedScdla = []
-        for i in range(row["ore settimanali"]):
-            singleHourCoursePortions.append(f"{row['corso']}_{i+1}")
-            singleHourCoursePortionsRelatedProfessor.append(f"{row['professore']} {row['corso']}_{i+1}")
-            singleHourCoursePortionsRelatedScdla.append(f"{row['studentiCorsoDiLaureaAnno scdla']} {row['corso']}_{i+1}")
+        listaCorsi.append(corso)
 
-        initStr += generateCourseCombinations("coppiaCorsi", singleHourCoursePortions, 2)
-        initStr += generateCourseCombinations("triadeCorsi", singleHourCoursePortions, 3)
-        initStr += generateCourseCombinations("quartettoCorsi", singleHourCoursePortions, 4)
+        initStr += f"(= (durataCorso {corso}) {ore})\n"
+        initStr += f"(insegna {prof} {corso})\n"
+        initStr += f"(frequenta {gruppo} {corso})\n\n"
+        goalStr += f"(= (durataCorso {corso}) 0)\n"
+    
+    objStr += "\n".join(listaCorsi) + " - corso\n\n"
 
+    # --- 2. DOCENTI ---
+    listaDocenti = []
+    dataFramesDisponibilitaProfessori = sheets["disponibilitàProfessori"]
+    for index, row in dataFramesDisponibilitaProfessori.iterrows():
+        prof = row['professore']
+        listaDocenti.append(prof)
+
+        disponibilita = row.drop('professore') 
+        for fasciaOraria, valore in disponibilita.items():
+            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
+            if str(fasciaOraria).endswith("13"): 
+                continue
+            if valore == 0:
+                initStr += f"(docenteOccupato {prof} {fasciaOraria})\n"
+                
+    initStr += "\n"
+    objStr += "\n".join(listaDocenti) + " - docente\n\n"
+
+    # --- 3. AULE (Catena) ---
+    listaAule = []
+    dataFramesAule = sheets["aule"]
+    for index, row in dataFramesAule.iterrows():
+        listaAule.append(row['aula'])
+
+    for i in range(len(listaAule)):
+        if i == 0:
+            initStr += f"(aulaAttiva {listaAule[i]})\n"
+        if i < len(listaAule) - 1:
+            initStr += f"(prossimaAula {listaAule[i]} {listaAule[i+1]})\n"
+    
+    initStr += "\n"
+
+    # --- 4. AULE (Occupazione) ---
+    dfDispAule = sheets["disponibilitàAule"]
+    for index, row in dfDispAule.iterrows():
+        aula = row['aula']
+        disp = row.drop('aula')
+        for fasciaOraria, valore in disp.items():
+            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
+            if str(fasciaOraria).endswith("13"): 
+                continue
+            if valore == 0:
+                initStr += f"(occupata {aula} {fasciaOraria})\n"
+                
+    initStr += "\n"
+    objStr += "\n".join(listaAule) + " - aula\n\n"
+    
+    # --- 5. GRUPPI STUDENTI ---
+    listaGruppi = []
+    dfDispScdla = sheets["disponibilitàScdla"]
+    for index, row in dfDispScdla.iterrows():
+        gruppo = row['scdla']
+        listaGruppi.append(gruppo)
         
-        newLineInitInsegna = ")\n(insegna "
-        initStr += f"(insegna {newLineInitInsegna.join(singleHourCoursePortionsRelatedProfessor)})\n"
+        disp = row.drop('scdla')
+        for fasciaOraria, valore in disp.items():
+            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
+            if str(fasciaOraria).endswith("13"): 
+                continue
+            if valore == 0:
+                initStr += f"(gruppoStudentiOccupato {gruppo} {fasciaOraria})\n"
+                
+    initStr += "\n"
+    objStr += "\n".join(listaGruppi) + " - gruppoStudenti\n\n"
+
+    # --- 6. FASCE ORARIE (Catena Temporale) ---
+    # Legge l'intestazione, ma SCARTA SUBITO tutto ciò che finisce per 13
+    listaFasceRaw = list(sheets["disponibilitàAule"].columns)[1:] 
+    listaFasce = [str(f) for f in listaFasceRaw if not str(f).endswith("13")]
+    
+    objStr += "cambioGiorno1\ncambioGiorno2\ncambioGiorno3\ncambioGiorno4\ncambioGiorno5 - fasciaOraria\n"
+    objStr += "\n".join(listaFasce) + " - fasciaOraria\n\n"
+
+    initStr += f"(= (costoAzione) 0)\n"
+    initStr += f"(oraCorrente {listaFasce[0]})\n"
+    initStr += f"(inizioSettimana {listaFasce[0]})\n"
+    initStr += f"(fineSettimana cambioGiorno5)\n\n"
+
+    giorni_dict = {"mon": [], "tue": [], "wed": [], "thu": [], "fri": []}
+    for f in listaFasce:
+        giorni_dict[f[:3]].append(f)
+
+    day_idx = 1
+    for day, fasce in giorni_dict.items():
+        if not fasce: continue
+
+        for i in range(len(fasce) - 1):
+            initStr += f"(next {fasce[i]} {fasce[i+1]})\n"
+            
+        cg = f"cambioGiorno{day_idx}"
+        initStr += f"(next {fasce[-1]} {cg})\n"
+        
+        if day_idx < 5:
+            next_day_first = list(giorni_dict.values())[day_idx][0]
+            initStr += f"(next {cg} {next_day_first})\n" 
+            
+        for f in fasce:
+            initStr += f"(fineGiornata {f} {cg})\n"
+            
+        for aula in listaAule:
+            initStr += f"(occupata {aula} {cg})\n"
+            
         initStr += "\n"
+        day_idx += 1
 
-        newLineInitFrequenta = ")\n(frequenta "
-        initStr += f"(frequenta {newLineInitFrequenta.join(singleHourCoursePortionsRelatedScdla)})\n"
-        initStr += "\n"
-
-        newLine = "\n"
-        objStr += f"{newLine.join(singleHourCoursePortions)}\n"
-
-        newLineGoal = ")\n(fissato "
-        goalStr += f"(fissato {newLineGoal.join(singleHourCoursePortions)})\n"
-    objStr += "- corso\n\n"
-
-    dataFramesDisponibilitàProfessori = sheets["disponibilitàProfessori"]
-    for index, row in dataFramesDisponibilitàProfessori.iterrows():
-        objStr += f"{row['professore']}\n"
-
-        disponibilità = row.drop('professore') 
-        
-        for fasciaOraria, valore in disponibilità.items():
-            if valore == 1:
-                initStr += f"(profDisponibile {row['professore']} {fasciaOraria})\n"
-    objStr += "- professore\n\n"
-    initStr += "\n"
-
-    dataFramesDisponibilitàAule = sheets["disponibilitàAule"]
-    for index, row in dataFramesDisponibilitàAule.iterrows():
-        objStr += f"{row['aula']}\n"
-        
-        disponibilità = row.drop('aula') 
-        
-        for fasciaOraria, valore in disponibilità.items():
-            if valore == 1:
-                initStr += f"(aulaDisponibile {row['aula']} {fasciaOraria})\n"
-    objStr += "- aula\n\n"
-    initStr += "\n"
-
+    # --- 7. SALVATAGGIO ---
+    problem_name = "problemDiegoV5"
+    domain_name  = "domainDiegoV5"
     
-    dataFramesDisponibilitàScdla = sheets["disponibilitàScdla"]
-    #orarioPausaPranzo = str(sheets["configurazione"].at['orario nel quale inserire un ora di pausa pranzo', 'valori'])
-    orarioPausaPranzo = str(sheets["configurazione"].iat[1, 1])[:2]
-    for index, row in dataFramesDisponibilitàScdla.iterrows():
-        objStr += f"{row['scdla']}\n"
-        
-        disponibilità = row.drop('scdla') 
-        
-        for fasciaOraria, valore in disponibilità.items():
-            #print(f"DEBUG: Confronto '{fasciaOraria[-2:]}' (tipo: {type(fasciaOraria[-2:])}) con '{orarioPausaPranzo}' (tipo: {type(orarioPausaPranzo)})")
-            if valore == 1 and fasciaOraria[-2:] != orarioPausaPranzo:
-                initStr += f"(scdlaDisponibile {row['scdla']} {fasciaOraria})\n"
-    objStr += "- scdla\n"
-    initStr += "\n"
-
-    days = ["mon", "tue", "wed", "thu", "fri"]
-    for day in days:
-        fasceOrarieGiornaliere = []
-        for i in range(8, 19):
-            fasceOrarieGiornaliere.append(f"{day}{i:02d}")
-        initStr += generateFasceOrarieWindows("coppiaFasceOrarie", fasceOrarieGiornaliere, 2)
-        initStr += generateFasceOrarieWindows("triadeFasceOrarie", fasceOrarieGiornaliere, 3)
-        initStr += generateFasceOrarieWindows("quartettoFasceOrarie", fasceOrarieGiornaliere, 4)
+    problemContent = f"""(define (problem {problem_name}) (:domain {domain_name})
     
+    (:objects
+        {objStr}
+    )
 
-    
+    (:init
+        {initStr}
+    )
 
+    (:goal (and
+        {goalStr}
+    ))
 
-    # multi-line f-string
-    problemContent = f"""(define (problem {problem}) (:domain {domain})
-(:objects
-{objStr}
-mon08
-mon09
-mon10
-mon11
-mon12
-mon13
-mon14
-mon15
-mon16
-mon17
-mon18
-
-tue08
-tue09
-tue10
-tue11
-tue12
-tue13
-tue14
-tue15
-tue16
-tue17
-tue18
-
-wed08
-wed09
-wed10
-wed11
-wed12
-wed13
-wed14
-wed15
-wed16
-wed17
-wed18
-
-thu08
-thu09
-thu10
-thu11
-thu12
-thu13
-thu14
-thu15
-thu16
-thu17
-thu18
-
-fri08
-fri09
-fri10
-fri11
-fri12
-fri13
-fri14
-fri15
-fri16
-fri17
-fri18 - fasciaOraria
-)
-
-(:init
-{initStr}
-(= (costoFasciaOraria mon08) 1)
-(= (costoFasciaOraria mon09) 2)
-(= (costoFasciaOraria mon10) 3)
-(= (costoFasciaOraria mon11) 4)
-(= (costoFasciaOraria mon12) 5)
-(= (costoFasciaOraria mon13) 6)
-(= (costoFasciaOraria mon14) 7)
-(= (costoFasciaOraria mon15) 8)
-(= (costoFasciaOraria mon16) 9)
-(= (costoFasciaOraria mon17) 10)
-(= (costoFasciaOraria mon18) 11)
-(= (costoFasciaOraria tue08) 1)
-(= (costoFasciaOraria tue09) 2)
-(= (costoFasciaOraria tue10) 3)
-(= (costoFasciaOraria tue11) 4)
-(= (costoFasciaOraria tue12) 5)
-(= (costoFasciaOraria tue13) 6)
-(= (costoFasciaOraria tue14) 7)
-(= (costoFasciaOraria tue15) 8)
-(= (costoFasciaOraria tue16) 9)
-(= (costoFasciaOraria tue17) 10)
-(= (costoFasciaOraria tue18) 11)
-(= (costoFasciaOraria wed08) 1)
-(= (costoFasciaOraria wed09) 2)
-(= (costoFasciaOraria wed10) 3)
-(= (costoFasciaOraria wed11) 4)
-(= (costoFasciaOraria wed12) 5)
-(= (costoFasciaOraria wed13) 6)
-(= (costoFasciaOraria wed14) 7)
-(= (costoFasciaOraria wed15) 8)
-(= (costoFasciaOraria wed16) 9)
-(= (costoFasciaOraria wed17) 10)
-(= (costoFasciaOraria wed18) 11)
-(= (costoFasciaOraria thu08) 1)
-(= (costoFasciaOraria thu09) 2)
-(= (costoFasciaOraria thu10) 3)
-(= (costoFasciaOraria thu11) 4)
-(= (costoFasciaOraria thu12) 5)
-(= (costoFasciaOraria thu13) 6)
-(= (costoFasciaOraria thu14) 7)
-(= (costoFasciaOraria thu15) 8)
-(= (costoFasciaOraria thu16) 9)
-(= (costoFasciaOraria thu17) 10)
-(= (costoFasciaOraria thu18) 11)
-(= (costoFasciaOraria fri08) 1)
-(= (costoFasciaOraria fri09) 2)
-(= (costoFasciaOraria fri10) 3)
-(= (costoFasciaOraria fri11) 4)
-(= (costoFasciaOraria fri12) 5)
-(= (costoFasciaOraria fri13) 6)
-(= (costoFasciaOraria fri14) 7)
-(= (costoFasciaOraria fri15) 8)
-(= (costoFasciaOraria fri16) 9)
-(= (costoFasciaOraria fri17) 10)
-(= (costoFasciaOraria fri18) 11)
-
-(= (total-cost) 0)
-)
-
-(:goal (and
-{goalStr}
-))
-(:metric minimize (total-cost))
-)
+    (:metric minimize (costoAzione))
+    )
     """
-    print(problemContent)
+    
+    output_dir = "problemGenerati"
+    os.makedirs(output_dir, exist_ok=True)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-    with open(f"problem_{timestamp}.pddl", "w") as file:
+    nome_file_output = os.path.join(output_dir, f"problem_{timestamp}.pddl")
+    
+    with open(nome_file_output, "w") as file:
         file.write(problemContent)
-
-
-"""     (fissato ?c - corso)
-        (fasciaOrariaLibera ?f - fasciaOraria)
         
-        ;(consecutive ?f1 - fasciaOraria ?f2 - fasciaOraria)
-        (coppiaFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria)
-        ;(stessoCorso ?c1 - corso ?c2 - corso)
-        (coppiaCorso ?c1 - corso ?c2 - corso)
-        (triadeFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria)
-        (triadeCorsi ?c1 - corso ?c2 - corso ?c3 - corso)
-        (quartettoFasceOrarie ?f1 - fasciaOraria ?f2 - fasciaOraria ?f3 - fasciaOraria ?f4 - fasciaOraria)
-        (quartettoCorsi ?c1 - corso ?c2 - corso ?c3 - corso ?c4 - corso)
-
-        (insegna ?p - professore ?c - corso)
-        (profDisponibile ?p - professore ?f - fasciaOraria)
-
-        (aulaDisponibile ?a - aula ?f - fasciaOraria);introdurre una function per la capienza?
-
-        (frequenta ?s - scdla ?c - corso)
-        (scdlaDisponibile ?s - scdla ?f - fasciaOraria)"""
+    print(f"Fatto")
+    print(f"Salvato come: {nome_file_output}")
 
 if __name__ == "__main__":
     main()
