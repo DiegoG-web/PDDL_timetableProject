@@ -67,8 +67,8 @@
         ;laboratorioRaspberry - corso
         elettronicaGenerale
         sistemiOperativi
-        linguaggiProgrammazione
-        basiDiDati - corso
+        linguaggiProgrammazione - corso
+        ;basiDiDati
         ;ingegneriaSoftware - corso
 
         sisinni
@@ -80,8 +80,8 @@
         gringoli
         flammini
         baroni
-        lamperti
-        rula -docente
+        lamperti -docente
+        ;rula 
         ;zanella - docente
 
         aula1
@@ -110,7 +110,7 @@
         (= (durataCorso elettronicaGenerale) 9)
         (= (durataCorso sistemiOperativi) 5)
         (= (durataCorso linguaggiProgrammazione) 5)
-        (= (durataCorso basiDiDati) 5)
+        ;(= (durataCorso basiDiDati) 5)
         ;(= (durataCorso ingegneriaSoftware) 5)
 
         (occupata aula1 cambioGiorno1)
@@ -249,7 +249,7 @@
         (insegna flammini elettronicaGenerale)
         (insegna baroni sistemiOperativi)
         (insegna lamperti linguaggiProgrammazione)
-        (insegna rula basiDiDati)
+        ;(insegna rula basiDiDati)
         ;(insegna zanella ingegneriaSoftware)
 
         (frequenta gruppoITID3 sistemiDigitali)
@@ -263,7 +263,7 @@
         (frequenta gruppoInformatica3 elettronicaGenerale)
         (frequenta gruppoInformatica3 sistemiOperativi)
         (frequenta gruppoInformatica3 linguaggiProgrammazione)
-        (frequenta gruppoInformatica3 basiDiDati)
+        ;(frequenta gruppoInformatica3 basiDiDati)
         ;(frequenta gruppoInformatica3 ingegneriaSoftware)
 
     )
@@ -280,7 +280,7 @@
         (= (durataCorso elettronicaGenerale) 0)
         (= (durataCorso sistemiOperativi) 0)
         (= (durataCorso linguaggiProgrammazione) 0)
-        (= (durataCorso basiDiDati) 0)
+        ;(= (durataCorso basiDiDati) 0)
         ;(= (durataCorso ingegneriaSoftware) 0)
     ))
     
