@@ -12,7 +12,7 @@ def main():
     excel_file = "timetablingTemplateDiego.xlsx"
     sheets = pd.read_excel(excel_file, sheet_name=None)
 
-    # --- 1. CORSI ---
+    # Corsi
     listaCorsi = []
     dataFramesCourses = sheets["corsi"]
     for index, row in dataFramesCourses.iterrows():
@@ -30,7 +30,7 @@ def main():
     
     objStr += "\n".join(listaCorsi) + " - corso\n\n"
 
-    # --- 2. DOCENTI ---
+    # Docenti
     listaDocenti = []
     dataFramesDisponibilitaProfessori = sheets["disponibilitàProfessori"]
     for index, row in dataFramesDisponibilitaProfessori.iterrows():
@@ -39,7 +39,6 @@ def main():
 
         disponibilita = row.drop('professore') 
         for fasciaOraria, valore in disponibilita.items():
-            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
             if str(fasciaOraria).endswith("13"): 
                 continue
             if valore == 0:
@@ -48,7 +47,7 @@ def main():
     initStr += "\n"
     objStr += "\n".join(listaDocenti) + " - docente\n\n"
 
-    # --- 3. AULE (Catena) ---
+    # Aule
     listaAule = []
     dataFramesAule = sheets["aule"]
     for index, row in dataFramesAule.iterrows():
@@ -62,13 +61,11 @@ def main():
     
     initStr += "\n"
 
-    # --- 4. AULE (Occupazione) ---
     dfDispAule = sheets["disponibilitàAule"]
     for index, row in dfDispAule.iterrows():
         aula = row['aula']
         disp = row.drop('aula')
         for fasciaOraria, valore in disp.items():
-            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
             if str(fasciaOraria).endswith("13"): 
                 continue
             if valore == 0:
@@ -77,7 +74,7 @@ def main():
     initStr += "\n"
     objStr += "\n".join(listaAule) + " - aula\n\n"
     
-    # --- 5. GRUPPI STUDENTI ---
+    # gruppoStudenti
     listaGruppi = []
     dfDispScdla = sheets["disponibilitàScdla"]
     for index, row in dfDispScdla.iterrows():
@@ -86,7 +83,6 @@ def main():
         
         disp = row.drop('scdla')
         for fasciaOraria, valore in disp.items():
-            # FILTRO 13: Ignora qualsiasi colonna finisca per 13
             if str(fasciaOraria).endswith("13"): 
                 continue
             if valore == 0:
@@ -95,7 +91,7 @@ def main():
     initStr += "\n"
     objStr += "\n".join(listaGruppi) + " - gruppoStudenti\n\n"
 
-    # --- 6. FASCE ORARIE (Catena Temporale) ---
+    # Fasce orarie
     # Legge l'intestazione, ma SCARTA SUBITO tutto ciò che finisce per 13
     listaFasceRaw = list(sheets["disponibilitàAule"].columns)[1:] 
     listaFasce = [str(f) for f in listaFasceRaw if not str(f).endswith("13")]
@@ -107,6 +103,8 @@ def main():
     initStr += f"(oraCorrente {listaFasce[0]})\n"
     initStr += f"(inizioSettimana {listaFasce[0]})\n"
     initStr += f"(fineSettimana cambioGiorno5)\n\n"
+
+    #da aggiungere la pausa pranzo!
 
     giorni_dict = {"mon": [], "tue": [], "wed": [], "thu": [], "fri": []}
     for f in listaFasce:
@@ -135,7 +133,6 @@ def main():
         initStr += "\n"
         day_idx += 1
 
-    # --- 7. SALVATAGGIO ---
     problem_name = "problemDiegoV5"
     domain_name  = "domainDiegoV5"
     
