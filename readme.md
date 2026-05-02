@@ -1,3 +1,22 @@
+## TODO
+* Compilare con titolo e matricola il form del profe
+* Scegliere quale versione e ultimarla
+* GUI input (da xlsx)
+* GUI output (interfaccia grafica dedicata con generazione immagine)
+* Creazione demo (durata 3/4 minuti)
+* Trovare il **focus della relazione**: perchè il planning ha dei limiti?
+* Redazione della relazione massimo 5 pagine (spiegazione di tutto + chi ha fatto cosa + note ai)
+* Completare il Readme
+
+Quindi:
+**Produrre: demo, presentazione, documentazione, codice**
+
+Se possibile ultimare entro Mercoledì 6 maggio alle 23.59
+
+
+
+
+
 # Timetable Planner
 
 Pianificatore logico per la generazione di orari universitari utilizzando il PDDL (Planning Domain Definition Language). 
