@@ -1,0 +1,2 @@
+https://www.reddit.com/r/learnpython/comments/14zo7zq/creating_an_excellike_gui_in_python/
+https://streamlit.io/playground?example=dataframes
