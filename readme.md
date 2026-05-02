@@ -7,6 +7,7 @@
 * Trovare il **focus della relazione**: perchè il planning ha dei limiti?
 * Redazione della relazione massimo 5 pagine (spiegazione di tutto + chi ha fatto cosa + note ai)
 * Completare il Readme
+* **STUDIARE TEORIA**
 
 Quindi:
 **Produrre: demo, presentazione, documentazione, codice**
