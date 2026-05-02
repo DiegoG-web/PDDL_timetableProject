@@ -1,5 +1,5 @@
 ## TODO
-* Compilare con titolo e matricola il form del profe
+
 * Scegliere quale versione e ultimarla
 * GUI input (da xlsx)
 * GUI output (interfaccia grafica dedicata con generazione immagine)

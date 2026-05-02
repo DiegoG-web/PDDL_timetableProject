@@ -10,3 +10,5 @@ Thumbs.db
 
 # Ignora le impostazioni locali di Visual Studio Code
 .vscode/
+
+resultsGenerator/

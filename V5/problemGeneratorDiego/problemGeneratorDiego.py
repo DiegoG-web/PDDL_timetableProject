@@ -31,11 +31,13 @@ def main():
     objStr += "\n".join(listaCorsi) + " - corso\n\n"
 
     #docenti
+    #docenti
     listaDocenti = []
     dataFramesDisponibilitaProfessori = sheets["disponibilitàProfessori"]
     for index, row in dataFramesDisponibilitaProfessori.iterrows():
         prof = row['professore']
-        listaDocenti.append(prof)
+        if prof not in listaDocenti:
+            listaDocenti.append(prof)
 
         disponibilita = row.drop('professore') 
         for fasciaOraria, valore in disponibilita.items():
