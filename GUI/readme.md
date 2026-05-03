@@ -6,6 +6,8 @@
 * https://docs.streamlit.io/develop/concepts/architecture/session-state
 * https://docs.streamlit.io/develop/api-reference/layout/st.tabs
 * https://docs.streamlit.io/develop/concepts/design/dataframes
+* https://www.reddit.com/r/learnpython/comments/14zo7zq/creating_an_excellike_gui_in_python/
+* https://streamlit.io/playground?example=dataframes
 
 ## TODO
 
