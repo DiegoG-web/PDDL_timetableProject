@@ -177,8 +177,7 @@ def main():
     with open(nome_file_output, "w") as file:
         file.write(problemContent)
         
-    print(f"Fatto")
-    print(f"Salvato come: {nome_file_output}")
+    print(os.path.abspath(nome_file_output))
 
 if __name__ == "__main__":
     main()
