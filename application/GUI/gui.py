@@ -139,7 +139,7 @@ with tab6:
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
-                print(s[1])
+                #print(s[1])
                 partsOfOutput=s[1].split("\n\n")
                 
                 
@@ -168,8 +168,6 @@ with tab6:
         #st.session_state["plannerRunFlag"] = False
 with tab7:
     st.header("Build output")
-    
-    
     # saving, type="primary" for enphasis
     if st.button("Graphical output", type="primary"):
         print("ciao")
