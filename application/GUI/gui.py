@@ -118,7 +118,6 @@ with tab6:
                 print(s[1])
                 st.session_state["problemGeneratedAbsPath"] = s[1]
 
-
                 if s[0] == 0:
                     st.success("Problem generated successfully")
                     st.write(f"as {st.session_state['problemGeneratedAbsPath']}")
@@ -139,21 +138,25 @@ with tab6:
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
                 print(s[1])
+                partsOfOutput=s[1].split("\n\n")
+                
                 
                 if s[0] == 0:
                     st.success("Planner run successfully")
-
-                    script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
-                    st.write(script_dir)
-                    script_dir = script_dir[:-4]
-                    st.write(script_dir)
-                    # log_dir = os.path.join(script_dir, "..", "logsPDDL") # percorso dei file di log
-                    tutti_i_log = glob.glob(os.path.join(script_dir+"\V5\logsPDDL", "print_very_last_state*.txt")) # cerco tutti i file di log giusti
-                    ultimo_log = max(tutti_i_log, key=os.path.getmtime) # prendo il piu recente
-                    st.write(f"leggo i dati dal plan: {os.path.basename(ultimo_log)}")
-                    with open(ultimo_log) as f:
-                        #print(f.read())
-                        st.write(f.read())
+                    st.text(partsOfOutput[2])
+                    st.write("PLAN:")
+                    st.text(partsOfOutput[1])
+                    # script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
+                    # st.write(script_dir)
+                    # script_dir = script_dir[:-4]
+                    # st.write(script_dir)
+                    # # log_dir = os.path.join(script_dir, "..", "logsPDDL") # percorso dei file di log
+                    # tutti_i_log = glob.glob(os.path.join(script_dir+"\V5\logsPDDL", "print_very_last_state*.txt")) # cerco tutti i file di log giusti
+                    # ultimo_log = max(tutti_i_log, key=os.path.getmtime) # prendo il piu recente
+                    # st.write(f"leggo i dati dal plan: {os.path.basename(ultimo_log)}")
+                    # with open(ultimo_log) as f:
+                    #     #print(f.read())
+                    #     st.write(f.read())
                         
                     st.session_state["plannerRunFlag"] = True
                 # s = subprocess.getstatusoutput(f'dir')
@@ -161,5 +164,20 @@ with tab6:
     else:
         st.info("Please generate a problem before running the planner")
         #st.session_state["plannerRunFlag"] = False
-
-
+with tab7:
+    st.header("Build output")
+    
+    
+    # saving, type="primary" for enphasis
+    if st.button("Graphical output", type="primary"):
+        print("ciao")
+        # with pd.ExcelWriter(INPUT) as writer:
+        #     for sheet_name, df in st.session_state["timetableDataframeDict"].items():
+        #         df.to_excel(writer, sheet_name=sheet_name, index=False)
+        
+        # st.success(f"Saved as `{INPUT}` in the gui folder")
+        
+        # st.session_state["fileSavedFlag"] = True
+    
+    if st.button("Tabular output", type="primary"):
+        print("ciao")
