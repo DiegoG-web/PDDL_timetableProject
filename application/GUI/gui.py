@@ -22,11 +22,15 @@ if "problemGeneratedFlag" not in st.session_state:
     st.session_state["problemGeneratedFlag"] = False
 if "plannerRunFlag" not in st.session_state:
     st.session_state["plannerRunFlag"] = False
+if "problemGeneratedAbsPath" not in st.session_state:
+    st.session_state["problemGeneratedAbsPath"] = ""
+
 
 def resetFlags():
     st.session_state["fileSavedFlag"] = False
     st.session_state["problemGeneratedFlag"] = False
     st.session_state["plannerRunFlag"] = False
+    st.session_state["problemGeneratedAbsPath"] = ""
 
 #sheets = pd.read_excel(INPUT, sheet_name=None)
 
@@ -110,11 +114,13 @@ with tab6:
                 s = subprocess.getstatusoutput(f'cd .. && cd V5/problemGeneratorDiego && python problemGeneratorDiego.py')
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
-                print(s)
+                print(s[1])
+                st.session_state["problemGeneratedAbsPath"] = s[1]
 
 
                 if s[0] == 0:
                     st.success("Problem generated successfully")
+                    st.write(f"as {st.session_state['problemGeneratedAbsPath']}")
                     st.session_state["problemGeneratedFlag"] = True
     else:
         st.info("Please save your changes to storage before starting the problemGenerator")
@@ -127,14 +133,16 @@ with tab6:
         if st.button("Run the planner"):
             with st.spinner("Running planner..."):
                 print(f'cd .. && cd V5 && .\\run-enhsp.bat application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
-                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat C:\BrandoOnPC\programmazione\PDDL\PDDL_timetableProject\\application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl C:\BrandoOnPC\programmazione\PDDL\PDDL_timetableProject\\application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
+                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat C:\BrandoOnPC\programmazione\PDDL\PDDL_timetableProject\\application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
                 print(s[1])
                 
-                st.success("Planner run successfully")
-                st.session_state["plannerRunFlag"] = True
+                if s[0] == 0:
+                    st.success("Planner run successfully")
+                    st.write(f"Output:\n {s[1]}")
+                    st.session_state["plannerRunFlag"] = True
                 # s = subprocess.getstatusoutput(f'dir')
                 # print(s[1])
     else:
