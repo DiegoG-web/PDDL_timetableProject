@@ -56,6 +56,9 @@ mkdir "%~dp0logsPDDL" 2>nul
 :: Grabs .sp_log file and renames it
 move "%~dp2*.sp_log" "%~dp0logsPDDL\plan_tree_%TIMESTAMP%.sp_log" >nul 2>&1
 
+echo:
+echo saved_plan_output_%TIMESTAMP%.txt
+
 :: force exit cleanly
 exit /b 0
 

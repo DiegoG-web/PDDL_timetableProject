@@ -25,6 +25,8 @@ if "plannerRunFlag" not in st.session_state:
     st.session_state["plannerRunFlag"] = False
 if "problemGeneratedAbsPath" not in st.session_state:
     st.session_state["problemGeneratedAbsPath"] = ""
+if "outputPlanFileName" not in st.session_state:
+    st.session_state["outputPlanFileName"] = ""
 
 
 def resetFlags():
@@ -32,6 +34,8 @@ def resetFlags():
     st.session_state["problemGeneratedFlag"] = False
     st.session_state["plannerRunFlag"] = False
     st.session_state["problemGeneratedAbsPath"] = ""
+    st.session_state["outputPlanFileName"] = ""
+
 
 #sheets = pd.read_excel(INPUT, sheet_name=None)
 
@@ -139,7 +143,7 @@ with tab6:
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
-                #print(s[1])
+                print(s[1])
                 partsOfOutput=s[1].split("\n\n")
                 
                 
@@ -161,6 +165,7 @@ with tab6:
                     #     st.write(f.read())
                         
                     st.session_state["plannerRunFlag"] = True
+                    st.session_state["outputPlanFileName"] = partsOfOutput[3]
                 # s = subprocess.getstatusoutput(f'dir')
                 # print(s[1])
     else:
@@ -180,4 +185,79 @@ with tab7:
         # st.session_state["fileSavedFlag"] = True
     
     if st.button("Tabular output", type="primary"):
-        print("ciao")
+
+        script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
+        parent = os.path.dirname(script_dir)
+        #print(parent)
+        # st.write(script_dir)
+        # script_dir = script_dir[:-4]
+        # st.write(script_dir)
+        # log_dir = os.path.join(script_dir, "..", "logsPDDL") # percorso dei file di log
+        planDir=parent+"\V5\logsPDDL\\"+st.session_state["outputPlanFileName"] # cerco tutti i file di log giusti
+        
+        with open(planDir) as f:
+            fileContents = f.read()
+            #print(fileContents)
+            lines=fileContents.split("\n")
+            filteredLines = []
+            gruppiStudenti = []
+            for line in lines:
+                line = line.strip().strip("()")
+                if line.startswith("assegna"):
+                    #filteredLines.append(line)
+                    lineContents=line.split(" ")
+                    filteredLines.append(lineContents)
+                    if lineContents[len(lineContents)-1] not in gruppiStudenti:
+                        gruppiStudenti.append(lineContents[len(lineContents)-1])
+                    print(line)
+            print(gruppiStudenti)
+
+            for gruppoStudenti in gruppiStudenti:
+                data = {
+                    "mon": ["", "", "", "", "", "", "", "", "", "", ""],
+                    "tue": ["", "", "", "", "", "", "", "", "", "", ""],
+                    "wed": ["", "", "", "", "", "", "", "", "", "", ""],
+                    "thu": ["", "", "", "", "", "", "", "", "", "", ""],
+                    "fri": ["", "", "", "", "", "", "", "", "", "", ""]
+                }
+                for filteredLine in filteredLines:
+                    # print(filteredLine[len(filteredLine)-1] )
+                    # print(gruppoStudenti)
+                    if filteredLine[len(filteredLine)-1] == gruppoStudenti:
+                        contents=[]
+                        contents.append(filteredLine[1])
+                        contents.append(filteredLine[len(filteredLine)-3])
+                        contents.append(filteredLine[len(filteredLine)-2])
+                        if filteredLine[0][7]=="2":
+                            
+                            riga=int(filteredLine[2][3:])-8
+                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+
+                            # print(riga)
+                            # print(filteredLine[2][:3])
+                            # print(2)
+                        if filteredLine[0][7]=="3":
+                            riga=int(filteredLine[2][3:])-8
+                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
+
+                        if filteredLine[0][7]=="4":
+                            riga=int(filteredLine[2][3:])-8
+                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
+                            data[filteredLine[2][:3]][riga+3] = contents[0]+", "+contents[1]+", "+contents[2]
+
+                        
+                df = pd.DataFrame(data, index = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"])
+                print(df)
+                st.write(gruppoStudenti)
+                st.write(df)
+        #     st.write(f.read())
+        #ultimo_log = max(tutti_i_log, key=os.path.getmtime) # prendo il piu recente
+        # st.write(f"leggo i dati dal plan: {os.path.basename(ultimo_log)}")
+        # with open(ultimo_log) as f:
+        #     #print(f.read())
+        #     st.write(f.read())
