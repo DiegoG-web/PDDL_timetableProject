@@ -80,10 +80,10 @@ def main():
     listaGruppi = []
     dfDispScdla = sheets["disponibilitàGruppiStudenti"]
     for index, row in dfDispScdla.iterrows():
-        gruppo = row['scdla']
+        gruppo = row['gruppiStudenti'] ## ATTENZIONE, COME è POSSIBILE CHE FOSSE COSì? gruppo = row['scdla']
         listaGruppi.append(gruppo)
         
-        disp = row.drop('scdla')
+        disp = row.drop('gruppiStudenti')  ## ATTENZIONE, COME è POSSIBILE CHE FOSSE COSì?  disp = row.drop('scdla')
         for fasciaOraria, valore in disp.items():
             if str(fasciaOraria).endswith(ora_pausa_str): 
                 continue
