@@ -4,15 +4,26 @@ import pandas as pd
 import os
 import subprocess
 import glob
+from io import StringIO
+
+st.title("Timetable Planner")
 
 
-
-INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+uploaded_file = st.file_uploader("Choose an xlsx file for a quick setup", type="xlsx")
+if uploaded_file is not None:
+    INPUT = uploaded_file
+    save_path = os.path.join(os.getcwd(), uploaded_file.name)
+    with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    st.session_state["uploadedFile"] = True
+else:
+    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
 
 # setting the state of the gui, at once
-if "timetableDataframeDict" not in st.session_state:
+if "timetableDataframeDict" not in st.session_state or st.session_state["uploadedFile"] == True:
     try:
         st.session_state["timetableDataframeDict"] = pd.read_excel(INPUT, sheet_name=None)   #loads all sheets into a dictionary of DataFrames, like a matrix, in a dict
+        st.session_state["uploadedFile"] = False 
     except FileNotFoundError:
         st.error(f"did not find {INPUT}")
         st.stop()
@@ -27,6 +38,9 @@ if "problemGeneratedAbsPath" not in st.session_state:
     st.session_state["problemGeneratedAbsPath"] = ""
 if "outputPlanFileName" not in st.session_state:
     st.session_state["outputPlanFileName"] = ""
+if "uploadedFile" not in st.session_state:
+    st.session_state["uploadedFile"] = False
+
 
 
 def resetFlags():
@@ -39,7 +53,11 @@ def resetFlags():
 
 #sheets = pd.read_excel(INPUT, sheet_name=None)
 
-st.title("Timetable Planner")
+
+
+
+
+
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
     ["Corsi", "Disponibilità Professori", "Disponibilità aule", 
@@ -179,15 +197,15 @@ with tab6:
 with tab7:
     st.header("Build output")
     # saving, type="primary" for enphasis
-    if st.button("Graphical output", type="primary"):
-        print("ciao")
-        # with pd.ExcelWriter(INPUT) as writer:
-        #     for sheet_name, df in st.session_state["timetableDataframeDict"].items():
-        #         df.to_excel(writer, sheet_name=sheet_name, index=False)
+    # if st.button("Graphical output", type="primary"):
+    #     #print("ciao")
+    #     # with pd.ExcelWriter(INPUT) as writer:
+    #     #     for sheet_name, df in st.session_state["timetableDataframeDict"].items():
+    #     #         df.to_excel(writer, sheet_name=sheet_name, index=False)
         
-        # st.success(f"Saved as `{INPUT}` in the gui folder")
+    #     # st.success(f"Saved as `{INPUT}` in the gui folder")
         
-        # st.session_state["fileSavedFlag"] = True
+    #     # st.session_state["fileSavedFlag"] = True
     
     if st.button("Tabular output", type="primary"):
 
@@ -214,8 +232,8 @@ with tab7:
                     filteredLines.append(lineContents)
                     if lineContents[len(lineContents)-1] not in gruppiStudenti:
                         gruppiStudenti.append(lineContents[len(lineContents)-1])
-                    print(line)
-            print(gruppiStudenti)
+                    #print(line)
+            #print(gruppiStudenti)
 
             for gruppoStudenti in gruppiStudenti:
                 data = {
@@ -257,7 +275,7 @@ with tab7:
 
                         
                 df = pd.DataFrame(data, index = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"])
-                print(df)
+                #print(df)
                 st.write(gruppoStudenti)
                 st.write(df)
         #     st.write(f.read())

@@ -51,7 +51,7 @@ def main():
 
     #aule
     listaAule = []
-    dataFramesAule = sheets["aule"]
+    dataFramesAule = sheets["disponibilitàAule"]
     for index, row in dataFramesAule.iterrows():
         listaAule.append(row['aula'])
 
