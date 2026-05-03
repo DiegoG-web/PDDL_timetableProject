@@ -133,8 +133,10 @@ with tab6:
     if st.session_state["problemGeneratedFlag"] == True:
         if st.button("Run the planner"):
             with st.spinner("Running planner..."):
-                print(f'cd .. && cd V5 && .\\run-enhsp.bat application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
-                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat C:\BrandoOnPC\programmazione\PDDL\PDDL_timetableProject\\application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
+                #print(f'cd .. && cd V5 && .\\run-enhsp.bat application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
+
+                print(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl "{st.session_state["problemGeneratedAbsPath"]}"')
+                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl "{st.session_state["problemGeneratedAbsPath"]}"')
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
