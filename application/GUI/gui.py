@@ -6,6 +6,9 @@ import subprocess
 import glob
 from io import StringIO
 
+#comment for standard width
+#st.set_page_config(layout="wide")
+
 st.title("Timetable Planner")
 
 
@@ -52,11 +55,6 @@ def resetFlags():
 
 
 #sheets = pd.read_excel(INPUT, sheet_name=None)
-
-
-
-
-
 
 
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
@@ -169,11 +167,19 @@ with tab6:
                 print(s[1])
                 partsOfOutput=s[1].split("\n\n")
                 
+                groundingTime = int(partsOfOutput[0].split("\n")[3].split(" ")[2])
+                planningTime = int(partsOfOutput[2].split("\n")[2].split(" ")[3])
+                totalTime = groundingTime + planningTime
                 
                 if s[0] == 0:
                     st.success("Planner run successfully")
+                    st.write("### TotalTime: groundingTime + planningTime")
+                    st.write(f"#### TotalTime: {totalTime}ms")
+                    st.text(f"groundingTime: {groundingTime}ms")
+                    st.text(f"planningTime: {planningTime}ms")
+                    st.write("### DETAILS:")
                     st.text(partsOfOutput[2])
-                    st.write("PLAN:")
+                    st.write("### PLAN:")
                     st.text(partsOfOutput[1])
                     # script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
                     # st.write(script_dir)
