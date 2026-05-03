@@ -52,7 +52,8 @@ with tab1:
         st.session_state["timetableDataframeDict"]["corsi"], #dataframe
         key=f"editorCorsi", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
         use_container_width=True,
-        on_change=resetFlags
+        on_change=resetFlags,
+        num_rows="dynamic"
     )
 with tab2:
     st.header("Disponibilità Professori")
@@ -61,7 +62,8 @@ with tab2:
         st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
         key=f"editorDisponibilitàProfessori", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
         use_container_width=True,
-        on_change=resetFlags
+        on_change=resetFlags,
+        num_rows="dynamic"
     )
 with tab3:
     st.header("Disponibilità aule")
@@ -70,7 +72,8 @@ with tab3:
         st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
         key=f"editorDisponibilitàAule", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
         use_container_width=True,
-        on_change=resetFlags
+        on_change=resetFlags,
+        num_rows="dynamic"
     )
 with tab4:
     st.header("Disponibilità gruppiStudenti")
@@ -79,7 +82,8 @@ with tab4:
         st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
         key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
         use_container_width=True,
-        on_change=resetFlags
+        on_change=resetFlags,
+        num_rows="dynamic"
     )
 with tab5:
     st.header("Configurazione")
@@ -88,7 +92,8 @@ with tab5:
         st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
         key=f"editorConfigurazione",#which st.data_editor is working on the screen at that moment, keeping track of all the changes made
         use_container_width=True,
-        on_change=resetFlags
+        on_change=resetFlags,
+        num_rows="dynamic"
     )
 with tab6:
     if st.button("Reset Flags"):
