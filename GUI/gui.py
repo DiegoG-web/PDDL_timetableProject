@@ -1,7 +1,9 @@
 
 import streamlit as st
 import pandas as pd
-#import os
+import os
+import subprocess
+
 
 
 INPUT = "timetablingTemplate.xlsx"
@@ -105,7 +107,12 @@ with tab6:
     if st.session_state["fileSavedFlag"] == True:
         if st.button("Generate the problem"):
             with st.spinner("Running script..."):
-                
+                subprocess.getstatusoutput(f'cd ..')
+                subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
+                s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
+                print(s)
+
+
                 
                 st.success("Problem generated successfully")
                 st.session_state["problemGeneratedFlag"] = True
@@ -123,6 +130,8 @@ with tab6:
                 
                 st.success("Planner run successfully")
                 st.session_state["plannerRunFlag"] = True
+                # s = subprocess.getstatusoutput(f'dir')
+                # print(s[1])
     else:
         st.info("Please generate a problem before running the planner")
         #st.session_state["plannerRunFlag"] = False
