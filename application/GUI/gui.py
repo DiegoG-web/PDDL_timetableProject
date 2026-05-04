@@ -20,6 +20,7 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
     st.session_state["uploadedFile"] = True
     INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+    #resetFlags() DA RIVEDERE; quando carico un nuovo file non mi si resettano le flags
 else:
     INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
 
@@ -160,12 +161,12 @@ with tab6:
             with st.spinner("Running planner..."):
                 #print(f'cd .. && cd V5 && .\\run-enhsp.bat application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
 
-                print(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl "{st.session_state["problemGeneratedAbsPath"]}"')
-                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl "{st.session_state["problemGeneratedAbsPath"]}"')
+                #print(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
+                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
                 # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
                 # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 #print(s)
-                print(s[1])
+                #print(s[1])
                 partsOfOutput=s[1].split("\n\n")
                 
                 groundingTime = int(partsOfOutput[0].split("\n")[3].split(" ")[2])
