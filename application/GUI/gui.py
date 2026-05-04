@@ -7,7 +7,7 @@ import glob
 from io import StringIO
 
 #comment for standard width
-#st.set_page_config(layout="wide")
+st.set_page_config(layout="wide")
 
 st.title("Timetable Planner")
 
@@ -15,10 +15,11 @@ st.title("Timetable Planner")
 uploaded_file = st.file_uploader("Choose an xlsx file for a quick setup", type="xlsx")
 if uploaded_file is not None:
     INPUT = uploaded_file
-    save_path = os.path.join(os.getcwd(), uploaded_file.name)
+    # save_path = os.path.join(os.getcwd(), uploaded_file.name)
     with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
         f.write(uploaded_file.getbuffer())
     st.session_state["uploadedFile"] = True
+    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
 else:
     INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
 
