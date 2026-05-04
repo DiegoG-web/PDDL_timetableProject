@@ -1,0 +1,17 @@
+Brando			try1			try2			try3
+
+Difficulty1.xlsx	533ms, 497ms, 36ms	485ms, 446ms,39ms 	508ms,465ms, 43ms
+Difficulty2.xlsx	866ms,745ms, 121ms	877ms, 757ms, 120ms	889ms,  762ms, 127ms
+Difficulty3.xlsx	3022ms,2221ms,801ms	2930ms,2128ms,802ms	2901ms,2126ms,775ms
+Difficulty4.xlsx	7958ms,4306ms,3652ms	7278ms,3719ms,3559ms	7370ms,3671ms,3699ms
+Difficulty5.xlsx	7801ms,5198ms,2603ms	7939ms,5473ms,2466ms	8101ms,5490ms,2611ms
+
+TotalTime: 508ms
+groundingTime: 465ms
+planningTime: 43ms
+
+
+
+CPU: 13th Gen Intel i5-13500 (20)
+Memory: 32 GB
+
