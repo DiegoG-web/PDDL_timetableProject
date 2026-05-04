@@ -11,28 +11,6 @@ st.set_page_config(layout="wide")
 
 st.title("Timetable Planner")
 
-
-uploaded_file = st.file_uploader("Choose an xlsx file for a quick setup", type="xlsx")
-if uploaded_file is not None:
-    INPUT = uploaded_file
-    # save_path = os.path.join(os.getcwd(), uploaded_file.name)
-    with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
-        f.write(uploaded_file.getbuffer())
-    st.session_state["uploadedFile"] = True
-    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
-    #resetFlags() DA RIVEDERE; quando carico un nuovo file non mi si resettano le flags
-else:
-    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
-
-# setting the state of the gui, at once
-if "timetableDataframeDict" not in st.session_state or st.session_state["uploadedFile"] == True:
-    try:
-        st.session_state["timetableDataframeDict"] = pd.read_excel(INPUT, sheet_name=None)   #loads all sheets into a dictionary of DataFrames, like a matrix, in a dict
-        st.session_state["uploadedFile"] = False 
-    except FileNotFoundError:
-        st.error(f"did not find {INPUT}")
-        st.stop()
-
 if "fileSavedFlag" not in st.session_state:
     st.session_state["fileSavedFlag"] = False
 if "problemGeneratedFlag" not in st.session_state:
@@ -45,15 +23,46 @@ if "outputPlanFileName" not in st.session_state:
     st.session_state["outputPlanFileName"] = ""
 if "uploadedFile" not in st.session_state:
     st.session_state["uploadedFile"] = False
-
-
-
+if "uploadedFiles" not in st.session_state:
+    st.session_state["uploadedFiles"] = {}
+    
+    
 def resetFlags():
     st.session_state["fileSavedFlag"] = False
     st.session_state["problemGeneratedFlag"] = False
     st.session_state["plannerRunFlag"] = False
     st.session_state["problemGeneratedAbsPath"] = ""
     st.session_state["outputPlanFileName"] = ""
+
+uploaded_file = st.file_uploader("Choose an xlsx file for a quick setup", type="xlsx")
+if uploaded_file is not None:
+    INPUT = uploaded_file
+    # save_path = os.path.join(os.getcwd(), uploaded_file.name)
+    if uploaded_file.name not in st.session_state["uploadedFiles"]:
+        st.session_state["uploadedFiles"] = {}
+        st.session_state["uploadedFiles"][uploaded_file.name] = True
+        resetFlags()
+    with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
+        f.write(uploaded_file.getbuffer())
+    st.session_state["uploadedFile"] = True
+    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+else:
+    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+
+# setting the state of the gui, at once
+if "timetableDataframeDict" not in st.session_state or st.session_state["uploadedFile"] == True:
+    try:
+        st.session_state["timetableDataframeDict"] = pd.read_excel(INPUT, sheet_name=None)   #loads all sheets into a dictionary of DataFrames, like a matrix, in a dict
+        st.session_state["uploadedFile"] = False 
+    except FileNotFoundError:
+        st.error(f"did not find {INPUT}")
+        st.stop()
+
+
+
+
+
+
 
 
 #sheets = pd.read_excel(INPUT, sheet_name=None)
