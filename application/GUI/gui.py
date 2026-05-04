@@ -177,37 +177,28 @@ with tab6:
                 #print(s)
                 #print(s[1])
                 partsOfOutput=s[1].split("\n\n")
+                try:
+                    groundingTime = int(partsOfOutput[0].split("\n")[3].split(" ")[2])
+                    planningTime = int(partsOfOutput[2].split("\n")[2].split(" ")[3])
+                    totalTime = groundingTime + planningTime
                 
-                groundingTime = int(partsOfOutput[0].split("\n")[3].split(" ")[2])
-                planningTime = int(partsOfOutput[2].split("\n")[2].split(" ")[3])
-                totalTime = groundingTime + planningTime
+                    if s[0] == 0:
+                        st.success("Planner run successfully")
+                        st.write("### TotalTime: groundingTime + planningTime")
+                        st.write(f"#### TotalTime: {totalTime}ms")
+                        st.text(f"groundingTime: {groundingTime}ms")
+                        st.text(f"planningTime: {planningTime}ms")
+                        st.write("### DETAILS:")
+                        st.text(partsOfOutput[2])
+                        st.write("### PLAN:")
+                        st.text(partsOfOutput[1])
+                        st.session_state["plannerRunFlag"] = True
+                        st.session_state["outputPlanFileName"] = partsOfOutput[3]
+                except: 
+                    st.error("Error parsing planner output or out of memory error")
+                    
                 
-                if s[0] == 0:
-                    st.success("Planner run successfully")
-                    st.write("### TotalTime: groundingTime + planningTime")
-                    st.write(f"#### TotalTime: {totalTime}ms")
-                    st.text(f"groundingTime: {groundingTime}ms")
-                    st.text(f"planningTime: {planningTime}ms")
-                    st.write("### DETAILS:")
-                    st.text(partsOfOutput[2])
-                    st.write("### PLAN:")
-                    st.text(partsOfOutput[1])
-                    # script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
-                    # st.write(script_dir)
-                    # script_dir = script_dir[:-4]
-                    # st.write(script_dir)
-                    # # log_dir = os.path.join(script_dir, "..", "logsPDDL") # percorso dei file di log
-                    # tutti_i_log = glob.glob(os.path.join(script_dir+"\V5\logsPDDL", "print_very_last_state*.txt")) # cerco tutti i file di log giusti
-                    # ultimo_log = max(tutti_i_log, key=os.path.getmtime) # prendo il piu recente
-                    # st.write(f"leggo i dati dal plan: {os.path.basename(ultimo_log)}")
-                    # with open(ultimo_log) as f:
-                    #     #print(f.read())
-                    #     st.write(f.read())
-                        
-                    st.session_state["plannerRunFlag"] = True
-                    st.session_state["outputPlanFileName"] = partsOfOutput[3]
-                # s = subprocess.getstatusoutput(f'dir')
-                # print(s[1])
+
     else:
         st.info("Please generate a problem before running the planner")
         #st.session_state["plannerRunFlag"] = False
