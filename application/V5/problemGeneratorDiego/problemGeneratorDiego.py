@@ -3,16 +3,18 @@ import os
 from datetime import datetime
 
 def main():
+    #declaring the strings that are going to became the building blocks of the problem
     objStr = ""
     initStr = ""
     goalStr = ""
 
+    #gui modified xlsx with data
     excel_file = "timetablingTemplateDiego.xlsx"
-    sheets = pd.read_excel(excel_file, sheet_name=None)
-    valore_pausa = int(sheets["configurazione"].iloc[0, 1])
+    sheets = pd.read_excel(excel_file, sheet_name=None) # dict of sheets
+    valore_pausa = int(sheets["configurazione"].iloc[0, 1]) 
     ora_pausa_str = f"{valore_pausa:02d}"
 
-    # corsi
+    # corsi, building the strings with the contents of the corsi sheet
     listaCorsi = []
     dataFramesCourses = sheets["corsi"]
     for index, row in dataFramesCourses.iterrows():
@@ -30,8 +32,8 @@ def main():
     
     objStr += "\n".join(listaCorsi) + " - corso\n\n"
 
-    #docenti
-    #docenti
+    
+    #docenti, building the strings with the contents of the disponibilitàProfessori sheet
     listaDocenti = []
     dataFramesDisponibilitaProfessori = sheets["disponibilitàProfessori"]
     for index, row in dataFramesDisponibilitaProfessori.iterrows():
@@ -49,7 +51,7 @@ def main():
     initStr += "\n"
     objStr += "\n".join(listaDocenti) + " - docente\n\n"
 
-    #aule
+    #aule, building the strings with the contents of the disponibilitàAule sheet
     listaAule = []
     dataFramesAule = sheets["disponibilitàAule"]
     for index, row in dataFramesAule.iterrows():
@@ -76,7 +78,7 @@ def main():
     initStr += "\n"
     objStr += "\n".join(listaAule) + " - aula\n\n"
     
-    #gruppoStudenti
+    #gruppoStudenti, building the strings with the contents of the disponibilitàGruppiStudenti sheet
     listaGruppi = []
     dfDispScdla = sheets["disponibilitàGruppiStudenti"]
     for index, row in dfDispScdla.iterrows():
@@ -151,6 +153,7 @@ def main():
     problem_name = f"problem_{timestamp}"
     domain_name  = "domainDiegoV5"
     
+    #assempling the problem string
     problemContent = f"""(define (problem {problem_name}) (:domain {domain_name})
     
     (:objects
@@ -169,14 +172,17 @@ def main():
     )
     """
     
+    #saving the problem, first checking if the dir exists
     output_dir = "problemGenerati"
     os.makedirs(output_dir, exist_ok=True)
     
     nome_file_output = os.path.join(output_dir, f"{problem_name}.pddl")
     
+    #saving problem
     with open(nome_file_output, "w") as file:
         file.write(problemContent)
         
+    #outputting the absPath for the problem, to let the gui know where it is
     print(os.path.abspath(nome_file_output))
 
 if __name__ == "__main__":
