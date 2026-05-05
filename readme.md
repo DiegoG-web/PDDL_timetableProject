@@ -9,6 +9,15 @@
 * Completare il Readme
 * **STUDIARE TEORIA**
 
+* TODO DIEGO:
+* vedi configurazioni bat 
+* pulire il codice e commentarlo
+* studio timetable problem
+* studio flag
+
+hard contraint pausa pranzo, numero massimo ore, non sovrapposizioni.
+soft contraints: costo: no ore buche, meglio 4 ore vicine.
+
 Quindi:
 **Produrre: demo, presentazione, documentazione, codice**
 
