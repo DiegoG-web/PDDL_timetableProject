@@ -3,14 +3,14 @@ import streamlit as st
 import pandas as pd
 import os
 import subprocess
-import glob
-from io import StringIO
 
 #comment for standard width
 st.set_page_config(layout="wide")
 
+#title for the page
 st.title("Timetable Planner")
 
+#checks for the flags existance
 if "fileSavedFlag" not in st.session_state:
     st.session_state["fileSavedFlag"] = False
 if "problemGeneratedFlag" not in st.session_state:
@@ -25,8 +25,12 @@ if "uploadedFile" not in st.session_state:
     st.session_state["uploadedFile"] = False
 if "uploadedFiles" not in st.session_state:
     st.session_state["uploadedFiles"] = {}
+if "uploader_key" not in st.session_state:
+    st.session_state["uploader_key"] = 0
+if "editedDataframes" not in st.session_state:
+    st.session_state["editedDataframes"] = {}
     
-    
+
 def resetFlags():
     st.session_state["fileSavedFlag"] = False
     st.session_state["problemGeneratedFlag"] = False
@@ -34,18 +38,28 @@ def resetFlags():
     st.session_state["problemGeneratedAbsPath"] = ""
     st.session_state["outputPlanFileName"] = ""
 
-uploaded_file = st.file_uploader("Choose an xlsx file for a quick setup", type="xlsx")
+#drawing the file uploader
+uploaded_file = st.file_uploader(
+    "Choose an xlsx file for a quick setup", 
+    type="xlsx", 
+    key=st.session_state["uploader_key"]
+)
 if uploaded_file is not None:
     INPUT = uploaded_file
-    # save_path = os.path.join(os.getcwd(), uploaded_file.name)
+    #check for resetting flags
     if uploaded_file.name not in st.session_state["uploadedFiles"]:
         st.session_state["uploadedFiles"] = {}
         st.session_state["uploadedFiles"][uploaded_file.name] = True
         resetFlags()
+    #we save it into the standard file so the next time we open the application it is already loaded
     with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
         f.write(uploaded_file.getbuffer())
     st.session_state["uploadedFile"] = True
     INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+
+    #Increment the key to destroy the old uploader and create a empty one
+    st.session_state["uploader_key"] += 1
+    st.rerun()
 else:
     INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
 
@@ -59,15 +73,6 @@ if "timetableDataframeDict" not in st.session_state or st.session_state["uploade
         st.stop()
 
 
-
-
-
-
-
-
-#sheets = pd.read_excel(INPUT, sheet_name=None)
-
-
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
     ["Corsi", "Disponibilità Professori", "Disponibilità aule", 
      "Disponibilità gruppiStudenti", "Configurazione", "Utilizzo", "Output"])
@@ -75,50 +80,50 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
 with tab1:
     st.header("Corsi")
     # save the output back into session_state
-    st.session_state["timetableDataframeDict"]["corsi"] = st.data_editor(
+    st.session_state["editedDataframes"]["corsi"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["corsi"], #dataframe
         key=f"editorCorsi", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
-        use_container_width=True,
+        width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
     )
 with tab2:
     st.header("Disponibilità Professori")
     # save the output back into session_state
-    st.session_state["timetableDataframeDict"]["disponibilitàProfessori"] = st.data_editor(
+    st.session_state["editedDataframes"]["disponibilitàProfessori"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
         key=f"editorDisponibilitàProfessori", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
-        use_container_width=True,
+        width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
     )
 with tab3:
     st.header("Disponibilità aule")
     # save the output back into session_state
-    st.session_state["timetableDataframeDict"]["disponibilitàAule"] = st.data_editor(
+    st.session_state["editedDataframes"]["disponibilitàAule"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
         key=f"editorDisponibilitàAule", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
-        use_container_width=True,
+        width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
     )
 with tab4:
     st.header("Disponibilità gruppiStudenti")
     # save the output back into session_state
-    st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"] = st.data_editor(
+    st.session_state["editedDataframes"]["disponibilitàGruppiStudenti"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
         key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
-        use_container_width=True,
+        width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
     )
 with tab5:
     st.header("Configurazione")
     # save the output back into session_state
-    st.session_state["timetableDataframeDict"]["configurazione"] = st.data_editor(
+    st.session_state["editedDataframes"]["configurazione"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
         key=f"editorConfigurazione",#which st.data_editor is working on the screen at that moment, keeping track of all the changes made
-        use_container_width=True,
+        width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
     )
@@ -132,9 +137,12 @@ with tab6:
     # saving, type="primary" for enphasis
     if st.button("Save to storage", type="primary"):
         with pd.ExcelWriter(INPUT) as writer:
-            for sheet_name, df in st.session_state["timetableDataframeDict"].items():
+            for sheet_name, df in st.session_state["editedDataframes"].items():
                 df.to_excel(writer, sheet_name=sheet_name, index=False)
         
+        # update the base dictionary so it reflects the truth
+        st.session_state["timetableDataframeDict"] = st.session_state["editedDataframes"].copy()
+
         st.success(f"Saved as `{INPUT}` in the gui folder")
         
         st.session_state["fileSavedFlag"] = True
@@ -183,7 +191,7 @@ with tab6:
                     totalTime = groundingTime + planningTime
                 
                     if s[0] == 0:
-                        st.success("Planner run successfully")
+                        st.success("Planner run successfully, check OUTPUT tab for formatted outut")
                         st.write("### TotalTime: groundingTime + planningTime")
                         st.write(f"#### TotalTime: {totalTime}ms")
                         st.text(f"groundingTime: {groundingTime}ms")
@@ -196,99 +204,68 @@ with tab6:
                         st.session_state["outputPlanFileName"] = partsOfOutput[3]
                 except: 
                     st.error("Error parsing planner output or out of memory error")
-                    
-                
-
     else:
         st.info("Please generate a problem before running the planner")
-        #st.session_state["plannerRunFlag"] = False
+
 with tab7:
     st.header("Build output")
-    # saving, type="primary" for enphasis
-    # if st.button("Graphical output", type="primary"):
-    #     #print("ciao")
-    #     # with pd.ExcelWriter(INPUT) as writer:
-    #     #     for sheet_name, df in st.session_state["timetableDataframeDict"].items():
-    #     #         df.to_excel(writer, sheet_name=sheet_name, index=False)
-        
-    #     # st.success(f"Saved as `{INPUT}` in the gui folder")
-        
-    #     # st.session_state["fileSavedFlag"] = True
-    
-    if st.button("Tabular output", type="primary"):
+    if st.session_state["plannerRunFlag"] == True:
+        if st.button("Tabular output", type="primary"):
 
-        script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
-        parent = os.path.dirname(script_dir)
-        #print(parent)
-        # st.write(script_dir)
-        # script_dir = script_dir[:-4]
-        # st.write(script_dir)
-        # log_dir = os.path.join(script_dir, "..", "logsPDDL") # percorso dei file di log
-        planDir=parent+"\V5\logsPDDL\\"+st.session_state["outputPlanFileName"] # cerco tutti i file di log giusti
-        
-        with open(planDir) as f:
-            fileContents = f.read()
-            #print(fileContents)
-            lines=fileContents.split("\n")
-            filteredLines = []
-            gruppiStudenti = []
-            for line in lines:
-                line = line.strip().strip("()")
-                if line.startswith("assegna"):
-                    #filteredLines.append(line)
-                    lineContents=line.split(" ")
-                    filteredLines.append(lineContents)
-                    if lineContents[len(lineContents)-1] not in gruppiStudenti:
-                        gruppiStudenti.append(lineContents[len(lineContents)-1])
-                    #print(line)
-            #print(gruppiStudenti)
+            script_dir = os.path.dirname(os.path.abspath(__file__)) # capiamo dove siamo
+            parent = os.path.dirname(script_dir)
+            planDir=parent+"\V5\logsPDDL\\"+st.session_state["outputPlanFileName"] # cerco tutti i file di log giusti
+            
+            with open(planDir) as f:
+                fileContents = f.read()
+                lines=fileContents.split("\n")
+                filteredLines = []
+                gruppiStudenti = []
+                for line in lines:
+                    line = line.strip().strip("()")
+                    if line.startswith("assegna"):
+                        lineContents=line.split(" ")
+                        filteredLines.append(lineContents)
+                        if lineContents[len(lineContents)-1] not in gruppiStudenti:
+                            gruppiStudenti.append(lineContents[len(lineContents)-1])
 
-            for gruppoStudenti in gruppiStudenti:
-                data = {
-                    "mon": ["", "", "", "", "", "", "", "", "", "", ""],
-                    "tue": ["", "", "", "", "", "", "", "", "", "", ""],
-                    "wed": ["", "", "", "", "", "", "", "", "", "", ""],
-                    "thu": ["", "", "", "", "", "", "", "", "", "", ""],
-                    "fri": ["", "", "", "", "", "", "", "", "", "", ""]
-                }
-                for filteredLine in filteredLines:
-                    # print(filteredLine[len(filteredLine)-1] )
-                    # print(gruppoStudenti)
-                    if filteredLine[len(filteredLine)-1] == gruppoStudenti:
-                        contents=[]
-                        contents.append(filteredLine[1])
-                        contents.append(filteredLine[len(filteredLine)-3])
-                        contents.append(filteredLine[len(filteredLine)-2])
-                        if filteredLine[0][7]=="2":
+                for gruppoStudenti in gruppiStudenti:
+                    data = {
+                        "mon": ["", "", "", "", "", "", "", "", "", "", ""],
+                        "tue": ["", "", "", "", "", "", "", "", "", "", ""],
+                        "wed": ["", "", "", "", "", "", "", "", "", "", ""],
+                        "thu": ["", "", "", "", "", "", "", "", "", "", ""],
+                        "fri": ["", "", "", "", "", "", "", "", "", "", ""]
+                    }
+                    for filteredLine in filteredLines:
+                        if filteredLine[len(filteredLine)-1] == gruppoStudenti:
+                            contents=[]
+                            contents.append(filteredLine[1])
+                            contents.append(filteredLine[len(filteredLine)-3])
+                            contents.append(filteredLine[len(filteredLine)-2])
+                            if filteredLine[0][7]=="2":
+                                
+                                riga=int(filteredLine[2][3:])-8
+                                data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+
+                            if filteredLine[0][7]=="3":
+                                riga=int(filteredLine[2][3:])-8
+                                data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
+
+                            if filteredLine[0][7]=="4":
+                                riga=int(filteredLine[2][3:])-8
+                                data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
+                                data[filteredLine[2][:3]][riga+3] = contents[0]+", "+contents[1]+", "+contents[2]
+
                             
-                            riga=int(filteredLine[2][3:])-8
-                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
-
-                            # print(riga)
-                            # print(filteredLine[2][:3])
-                            # print(2)
-                        if filteredLine[0][7]=="3":
-                            riga=int(filteredLine[2][3:])-8
-                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
-
-                        if filteredLine[0][7]=="4":
-                            riga=int(filteredLine[2][3:])-8
-                            data[filteredLine[2][:3]][riga] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+1] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+2] = contents[0]+", "+contents[1]+", "+contents[2]
-                            data[filteredLine[2][:3]][riga+3] = contents[0]+", "+contents[1]+", "+contents[2]
-
-                        
-                df = pd.DataFrame(data, index = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"])
-                #print(df)
-                st.write(gruppoStudenti)
-                st.write(df)
-        #     st.write(f.read())
-        #ultimo_log = max(tutti_i_log, key=os.path.getmtime) # prendo il piu recente
-        # st.write(f"leggo i dati dal plan: {os.path.basename(ultimo_log)}")
-        # with open(ultimo_log) as f:
-        #     #print(f.read())
-        #     st.write(f.read())
+                    df = pd.DataFrame(data, index = ["08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18"])
+                    #print(df)
+                    st.write(gruppoStudenti)
+                    st.write(df)
+    else:
+        st.info("Please run the planner before visualising the ouptput")
