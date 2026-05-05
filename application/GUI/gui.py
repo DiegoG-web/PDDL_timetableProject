@@ -74,6 +74,7 @@ if "timetableDataframeDict" not in st.session_state or st.session_state["uploade
         st.stop()
 
 
+#defining and using tabs
 tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
     ["Corsi", "Disponibilità Professori", "Disponibilità aule", 
      "Disponibilità gruppiStudenti", "Configurazione", "Utilizzo", "Output"])
@@ -83,7 +84,7 @@ with tab1:
     # save the output back into session_state
     st.session_state["editedDataframes"]["corsi"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["corsi"], #dataframe
-        key=f"editorCorsi", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
+        key=f"editorCorsi", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
         width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
@@ -93,7 +94,7 @@ with tab2:
     # save the output back into session_state
     st.session_state["editedDataframes"]["disponibilitàProfessori"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
-        key=f"editorDisponibilitàProfessori", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
+        key=f"editorDisponibilitàProfessori", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
         width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
@@ -103,7 +104,7 @@ with tab3:
     # save the output back into session_state
     st.session_state["editedDataframes"]["disponibilitàAule"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
-        key=f"editorDisponibilitàAule", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
+        key=f"editorDisponibilitàAule", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
         width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
@@ -113,7 +114,7 @@ with tab4:
     # save the output back into session_state
     st.session_state["editedDataframes"]["disponibilitàGruppiStudenti"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
-        key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on the screen at that moment, keeping track of all the changes made
+        key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
         width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
@@ -123,7 +124,7 @@ with tab5:
     # save the output back into session_state
     st.session_state["editedDataframes"]["configurazione"] = st.data_editor(
         st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
-        key=f"editorConfigurazione",#which st.data_editor is working on the screen at that moment, keeping track of all the changes made
+        key=f"editorConfigurazione",#which st.data_editor is working on screen at that moment, keeping trak of all the changes made
         width='stretch',
         on_change=resetFlags,
         num_rows="dynamic"
@@ -135,20 +136,15 @@ with tab6:
     st.write("### Saving Edited Data")
     st.write("Save your changes to storage before starting the problemGenerator")
     
-    # saving, type="primary" for enphasis
+    # saving, type="primary" for red
     if st.button("Save to storage", type="primary"):
         with pd.ExcelWriter(INPUT) as writer:
             for sheet_name, df in st.session_state["editedDataframes"].items():
                 df.to_excel(writer, sheet_name=sheet_name, index=False)
-        
-        # update the base dictionary so it reflects the truth
-        st.session_state["timetableDataframeDict"] = st.session_state["editedDataframes"].copy()
 
+        st.session_state["timetableDataframeDict"] = st.session_state["editedDataframes"].copy()
         st.success(f"Saved as `{INPUT}` in the gui folder")
-        
         st.session_state["fileSavedFlag"] = True
-    #else:
-        #st.session_state["fileSavedFlag"] = False
 
     st.divider()
 
@@ -156,12 +152,10 @@ with tab6:
         if st.button("Generate the problem"):
             with st.spinner("Running script..."):
                 s = subprocess.getstatusoutput(f'cd .. && cd V5/problemGeneratorDiego && python problemGeneratorDiego.py')
-                # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
-                # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
                 print(s[1])
                 st.session_state["problemGeneratedAbsPath"] = s[1]
 
-                if s[0] == 0:
+                if s[0] == 0:#check if exit code is okk
                     st.success("Problem generated successfully")
                     st.write(f"as {st.session_state['problemGeneratedAbsPath']}")
                     st.session_state["problemGeneratedFlag"] = True
@@ -184,7 +178,7 @@ with tab6:
                 batFileName="run-enhspOptimalPlanning.bat"
 
         with col3:
-            if st.button("Run Config 3 (TODO)", use_container_width=True):
+            if st.button("Run 3 (TODO)", use_container_width=True):
                 print("TODO")
     
         if batFileName != "":
@@ -197,7 +191,7 @@ with tab6:
                     planningTime = int(partsOfOutput[2].split("\n")[2].split(" ")[3])
                     totalTime = groundingTime + planningTime
                 
-                    if s[0] == 0:
+                    if s[0] == 0: #check if exit code is okk
                         st.success("Planner run successfully, check OUTPUT tab for formatted outut")
                         st.write("### TotalTime: groundingTime + planningTime")
                         st.write(f"#### TotalTime: {totalTime}ms")
@@ -224,6 +218,7 @@ with tab7:
             parent = os.path.dirname(script_dir)
             planDir=parent+"\V5\logsPDDL\\"+st.session_state["outputPlanFileName"] # cerco tutti i file di log giusti
             
+            #building the output
             with open(planDir) as f:
                 fileContents = f.read()
                 lines=fileContents.split("\n")
