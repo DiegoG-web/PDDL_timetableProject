@@ -38,6 +38,7 @@ def resetFlags():
     st.session_state["problemGeneratedAbsPath"] = ""
     st.session_state["outputPlanFileName"] = ""
 
+
 #drawing the file uploader
 uploaded_file = st.file_uploader(
     "Choose an xlsx file for a quick setup", 
@@ -149,8 +150,6 @@ with tab6:
     #else:
         #st.session_state["fileSavedFlag"] = False
 
-
-
     st.divider()
 
     if st.session_state["fileSavedFlag"] == True:
@@ -168,23 +167,31 @@ with tab6:
                     st.session_state["problemGeneratedFlag"] = True
     else:
         st.info("Please save your changes to storage before starting the problemGenerator")
-        #st.session_state["problemGeneratedFlag"] = False
     
     st.divider()
-
     
     if st.session_state["problemGeneratedFlag"] == True:
-        if st.button("Run the planner"):
-            with st.spinner("Running planner..."):
-                #print(f'cd .. && cd V5 && .\\run-enhsp.bat application\V5\problemGeneratorDiego\problemGenerati\domainDiegoV5.pddl application\V5\problemGeneratorDiego\problemGenerati\problem_20260503_113150.pddl')
+        batFileName = ""
 
-                #print(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
-                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\run-enhsp.bat problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
-                # s = subprocess.getstatusoutput(f'cd V5/problemGeneratorDiego')
-                # s = subprocess.getstatusoutput(f'python problemGeneratorDiego.py')
-                #print(s)
-                #print(s[1])
+        col1, col2, col3 = st.columns(3)
+
+        with col1:
+            if st.button("Run SatisficingPlanning (Standard)", use_container_width=True):
+                batFileName="run-enhspSatisficingPlanning.bat"
+
+        with col2:
+            if st.button("Run OptimalPlanning", use_container_width=True):
+                batFileName="run-enhspOptimalPlanning.bat"
+
+        with col3:
+            if st.button("Run Config 3 (TODO)", use_container_width=True):
+                print("TODO")
+    
+        if batFileName != "":
+            with st.spinner("Running planner..."):
+                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\{batFileName} problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
                 partsOfOutput=s[1].split("\n\n")
+
                 try:
                     groundingTime = int(partsOfOutput[0].split("\n")[3].split(" ")[2])
                     planningTime = int(partsOfOutput[2].split("\n")[2].split(" ")[3])
@@ -204,6 +211,7 @@ with tab6:
                         st.session_state["outputPlanFileName"] = partsOfOutput[3]
                 except: 
                     st.error("Error parsing planner output or out of memory error")
+
     else:
         st.info("Please generate a problem before running the planner")
 
@@ -269,3 +277,4 @@ with tab7:
                     st.write(df)
     else:
         st.info("Please run the planner before visualising the ouptput")
+
