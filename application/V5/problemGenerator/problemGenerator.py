@@ -9,7 +9,7 @@ def main():
     goalStr = ""
 
     #gui modified xlsx with data
-    excel_file = "timetablingTemplateDiego.xlsx"
+    excel_file = "timetablingTemplate.xlsx"
     sheets = pd.read_excel(excel_file, sheet_name=None) # dict of sheets
     valore_pausa = int(sheets["configurazione"].iloc[0, 1]) 
     ora_pausa_str = f"{valore_pausa:02d}"
@@ -151,7 +151,7 @@ def main():
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     problem_name = f"problem_{timestamp}"
-    domain_name  = "domainDiegoV5"
+    domain_name  = "domainV5"
     
     #assempling the problem string
     problemContent = f"""(define (problem {problem_name}) (:domain {domain_name})

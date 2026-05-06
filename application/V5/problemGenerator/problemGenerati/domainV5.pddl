@@ -1,6 +1,6 @@
 ;Header and description   ctrl + ù per commentare
 
-(define (domain domainDiegoV5)
+(define (domain domainV5)
 
 ;remove requirements that are not needed
 (:requirements :typing :negative-preconditions :fluents) ;necessary to remove warnings

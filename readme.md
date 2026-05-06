@@ -4,8 +4,6 @@
 * Studiare il **focus della relazione**
 * Completare i Readme
 * **STUDIARE TEORIA**
-
-* TODO DIEGO:
 * pulire il codice e commentarlo
 * studio timetable problem
 

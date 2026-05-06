@@ -53,16 +53,16 @@ if uploaded_file is not None:
         st.session_state["uploadedFiles"][uploaded_file.name] = True
         resetFlags()
     #we save it into the standard file so the next time we open the application it is already loaded
-    with open("../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx", "wb") as f:
+    with open("../V5/problemGenerator/timetablingTemplate.xlsx", "wb") as f:
         f.write(uploaded_file.getbuffer())
     st.session_state["uploadedFile"] = True
-    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+    INPUT = "../V5/problemGenerator/timetablingTemplate.xlsx"
 
     #Increment the key to destroy the old uploader and create a empty one
     st.session_state["uploader_key"] += 1
     st.rerun()
 else:
-    INPUT = "../V5/problemGeneratorDiego/timetablingTemplateDiego.xlsx"
+    INPUT = "../V5/problemGenerator/timetablingTemplate.xlsx"
 
 # setting the state of the gui, at once
 if "timetableDataframeDict" not in st.session_state or st.session_state["uploadedFile"] == True:
@@ -157,7 +157,7 @@ with tab2:
     if st.session_state["fileSavedFlag"] == True:
         if st.button("Generate the problem"):
             with st.spinner("Running script..."):
-                s = subprocess.getstatusoutput(f'cd .. && cd V5/problemGeneratorDiego && python problemGeneratorDiego.py')
+                s = subprocess.getstatusoutput(f'cd .. && cd V5/problemGenerator && python problemGenerator.py')
                 print(s[1])
                 st.session_state["problemGeneratedAbsPath"] = s[1]
 
@@ -189,7 +189,7 @@ with tab2:
     
         if batFileName != "":
             with st.spinner("Running planner..."):
-                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\{batFileName} problemGeneratorDiego\\problemGenerati\\domainDiegoV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
+                s = subprocess.getstatusoutput(f'cd .. && cd V5 && .\\{batFileName} problemGenerator\\problemGenerati\\domainV5.pddl {st.session_state["problemGeneratedAbsPath"]}')
                 partsOfOutput=s[1].split("\n\n")
 
                 try:

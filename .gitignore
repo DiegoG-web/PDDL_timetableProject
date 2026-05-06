@@ -13,8 +13,8 @@ Thumbs.db
 versions/V5/resultsGenerator/
 
 #Ignora i problem generati
-application/V5/problemGeneratorDiego/problemGenerati/problem_*.pddl
+application/V5/problemGenerator/problemGenerati/problem_*.pddl
 
-#Si può fare anche escludendo il domain così !application/V5/problemGeneratorDiego/problemGenerati/domainDiegoV5.pddl
+#Si può fare anche escludendo il domain così !application/V5/problemGenerator/problemGenerati/domainV5.pddl
 
 .~lock.*
