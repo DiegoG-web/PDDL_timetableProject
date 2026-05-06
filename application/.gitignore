@@ -1,8 +1,0 @@
-# Ignora le impostazioni locali di Visual Studio Code
-.vscode/
-
-# Ignora i file di sistema nascosti 
-.DS_Store
-Thumbs.db
-
-.~lock.*
