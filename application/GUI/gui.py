@@ -75,61 +75,67 @@ if "timetableDataframeDict" not in st.session_state or st.session_state["uploade
 
 
 #defining and using tabs
-tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
-    ["Corsi", "Disponibilità Professori", "Disponibilità aule", 
-     "Disponibilità gruppiStudenti", "Configurazione", "Utilizzo", "Output"])
+tab1, tab2, tab3 = st.tabs(
+    #["Corsi", "Disponibilità Professori", "Disponibilità aule", "Disponibilità gruppiStudenti", "Configurazione", 
+    ["Dati","Utilizzo", "Output"])
 
 with tab1:
-    st.header("Corsi")
-    # save the output back into session_state
-    st.session_state["editedDataframes"]["corsi"] = st.data_editor(
-        st.session_state["timetableDataframeDict"]["corsi"], #dataframe
-        key=f"editorCorsi", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
-        width='stretch',
-        on_change=resetFlags,
-        num_rows="dynamic"
+    #st.header("Dati")
+
+    tab4, tab5, tab6, tab7, tab8 = st.tabs(["Corsi","Disponibilità Professori", "Disponibilità Aule", "Disponibilità GruppiStudenti", "Pausa Pranzo"])
+    with tab4:
+        #st.header("Corsi")
+        # save the output back into session_state
+        st.session_state["editedDataframes"]["corsi"] = st.data_editor(
+            st.session_state["timetableDataframeDict"]["corsi"], #dataframe
+            key=f"editorCorsi", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
+            width='stretch',
+            on_change=resetFlags,
+            num_rows="dynamic"
+        )
+    with tab5:
+        #st.header("Disponibilità Professori")
+        # save the output back into session_state
+        st.session_state["editedDataframes"]["disponibilitàProfessori"] = st.data_editor(
+            st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
+            key=f"editorDisponibilitàProfessori", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
+            width='stretch',
+            on_change=resetFlags,
+            num_rows="dynamic"
     )
+
+
+    with tab6:
+        #st.header("Disponibilità aule")
+        # save the output back into session_state
+        st.session_state["editedDataframes"]["disponibilitàAule"] = st.data_editor(
+            st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
+            key=f"editorDisponibilitàAule", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
+            width='stretch',
+            on_change=resetFlags,
+            num_rows="dynamic"
+        )
+    with tab7:
+        #st.header("Disponibilità gruppiStudenti")
+        # save the output back into session_state
+        st.session_state["editedDataframes"]["disponibilitàGruppiStudenti"] = st.data_editor(
+            st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
+            key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
+            width='stretch',
+            on_change=resetFlags,
+            num_rows="dynamic"
+        )
+    with tab8:
+        #st.header("Pausa pranzo")
+        # save the output back into session_state
+        st.session_state["editedDataframes"]["configurazione"] = st.data_editor(
+            st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
+            key=f"editorConfigurazione",#which st.data_editor is working on screen at that moment, keeping trak of all the changes made
+            width='stretch',
+            on_change=resetFlags,
+            num_rows="dynamic"
+        )
 with tab2:
-    st.header("Disponibilità Professori")
-    # save the output back into session_state
-    st.session_state["editedDataframes"]["disponibilitàProfessori"] = st.data_editor(
-        st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
-        key=f"editorDisponibilitàProfessori", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
-        width='stretch',
-        on_change=resetFlags,
-        num_rows="dynamic"
-    )
-with tab3:
-    st.header("Disponibilità aule")
-    # save the output back into session_state
-    st.session_state["editedDataframes"]["disponibilitàAule"] = st.data_editor(
-        st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
-        key=f"editorDisponibilitàAule", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
-        width='stretch',
-        on_change=resetFlags,
-        num_rows="dynamic"
-    )
-with tab4:
-    st.header("Disponibilità gruppiStudenti")
-    # save the output back into session_state
-    st.session_state["editedDataframes"]["disponibilitàGruppiStudenti"] = st.data_editor(
-        st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
-        key=f"editorDisponibilitàGruppiStudenti", #which st.data_editor is working on screen at that moment, keeping trak of all the changes made
-        width='stretch',
-        on_change=resetFlags,
-        num_rows="dynamic"
-    )
-with tab5:
-    st.header("Configurazione")
-    # save the output back into session_state
-    st.session_state["editedDataframes"]["configurazione"] = st.data_editor(
-        st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
-        key=f"editorConfigurazione",#which st.data_editor is working on screen at that moment, keeping trak of all the changes made
-        width='stretch',
-        on_change=resetFlags,
-        num_rows="dynamic"
-    )
-with tab6:
     if st.button("Reset Flags"):
         resetFlags()
     
@@ -209,7 +215,7 @@ with tab6:
     else:
         st.info("Please generate a problem before running the planner")
 
-with tab7:
+with tab3:
     st.header("Build output")
     if st.session_state["plannerRunFlag"] == True:
         if st.button("Tabular output", type="primary"):

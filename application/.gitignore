@@ -4,3 +4,5 @@
 # Ignora i file di sistema nascosti 
 .DS_Store
 Thumbs.db
+
+.~lock.*

@@ -18,10 +18,10 @@ def main():
     listaCorsi = []
     dataFramesCourses = sheets["corsi"]
     for index, row in dataFramesCourses.iterrows():
-        corso = row["corso"]
-        ore = row["ore settimanali"]
-        prof = row["professore"]
-        gruppo = row["gruppoStudenti"]
+        corso = row["Corso"]
+        ore = row["Ore Settimanali"]
+        prof = row["Professore"]
+        gruppo = row["GruppoStudenti"]
 
         listaCorsi.append(corso)
 
@@ -37,11 +37,11 @@ def main():
     listaDocenti = []
     dataFramesDisponibilitaProfessori = sheets["disponibilitàProfessori"]
     for index, row in dataFramesDisponibilitaProfessori.iterrows():
-        prof = row['professore']
+        prof = row['Professore']
         if prof not in listaDocenti:
             listaDocenti.append(prof)
 
-        disponibilita = row.drop('professore') 
+        disponibilita = row.drop('Professore') 
         for fasciaOraria, valore in disponibilita.items():
             if str(fasciaOraria).endswith(ora_pausa_str): 
                 continue
@@ -55,7 +55,7 @@ def main():
     listaAule = []
     dataFramesAule = sheets["disponibilitàAule"]
     for index, row in dataFramesAule.iterrows():
-        listaAule.append(row['aula'])
+        listaAule.append(row['Aula'])
 
     for i in range(len(listaAule)):
         if i == 0:
@@ -67,8 +67,8 @@ def main():
 
     dfDispAule = sheets["disponibilitàAule"]
     for index, row in dfDispAule.iterrows():
-        aula = row['aula']
-        disp = row.drop('aula')
+        aula = row['Aula']
+        disp = row.drop('Aula')
         for fasciaOraria, valore in disp.items():
             if str(fasciaOraria).endswith(ora_pausa_str): 
                 continue
@@ -82,10 +82,10 @@ def main():
     listaGruppi = []
     dfDispScdla = sheets["disponibilitàGruppiStudenti"]
     for index, row in dfDispScdla.iterrows():
-        gruppo = row['gruppiStudenti']
+        gruppo = row['GruppiStudenti']
         listaGruppi.append(gruppo)
         
-        disp = row.drop('gruppiStudenti')
+        disp = row.drop('GruppiStudenti')
         for fasciaOraria, valore in disp.items():
             if str(fasciaOraria).endswith(ora_pausa_str): 
                 continue
