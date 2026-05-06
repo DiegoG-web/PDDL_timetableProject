@@ -1,30 +1,18 @@
 ## TODO
 
-* Scegliere quale versione e ultimarla
-* GUI input (da xlsx)
-* GUI output (interfaccia grafica dedicata con generazione immagine)
 * Creazione demo (durata 3/4 minuti)
-* Trovare il **focus della relazione**: perchè il planning ha dei limiti?
-* Redazione della relazione massimo 5 pagine (spiegazione di tutto + chi ha fatto cosa + note ai)
-* Completare il Readme
+* Studiare il **focus della relazione**
+* Completare i Readme
 * **STUDIARE TEORIA**
 
 * TODO DIEGO:
-* vedi configurazioni bat 
 * pulire il codice e commentarlo
 * studio timetable problem
-* studio flag
-
-hard contraint pausa pranzo, numero massimo ore, non sovrapposizioni.
-soft contraints: costo: no ore buche, meglio 4 ore vicine.
 
 Quindi:
 **Produrre: demo, presentazione, documentazione, codice**
 
 Se possibile ultimare entro Mercoledì 6 maggio alle 23.59
-
-
-
 
 
 # Timetable Planner
@@ -39,7 +27,10 @@ Il progetto è strutturato secondo un approccio incrementale. Ogni versione aggi
 
 * **V1:** 1 Corso, 1 Aula, N Materie, vincolo max 8 ore giornaliere. *(Work in Progress)*
 * **V2:** Aggiunta di vincoli come pausa pranzo e max 4 ore consecutive per materia. *(Da implementare)*
-* **V3:** Introduzione dei *costi*. *(Da implementare)*
+* **V3:** Introduzione di *professori, aule*.
+* **V4:** Introduzione dei *gruppiStudenti*.
+* **V%:** Creazione *problemGenerator.py*.
+* **GUI**
 
 ## Cosa usiamo?
 
@@ -54,3 +45,5 @@ Posizionarsi nella cartella della versione desiderata e lanciare ENHSP da termin
 
 * CTRL+ALT+P
 * ALT+P
+
+Oppure da GUI
