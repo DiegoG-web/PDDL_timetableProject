@@ -20,7 +20,7 @@ for /f %%i in ('powershell -Command "Get-Date -format 'yyyyMMdd_HHmmss'"') do se
 :: A: DRAFTING MODE (satisficing)
 :: finds a working plan quickly using the h_add heuristic
 ::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr
-java -jar "%~dp0enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -sjr -sp "%~dp0logsPDDL\saved_plan_output_%TIMESTAMP%.txt"
+java -jar "%~dp0enhsp25.jar" -o %1 -f %2 -planner opt-hrmax -timeout 360 -sjr -sp "%~dp0logsPDDL\saved_plan_output_%TIMESTAMP%.txt"
 ::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -sjr -pls > "%~dp0logsPDDL\print_very_last_state%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\saved_plan_output_%TIMESTAMP%.txt"
 ::java -jar "%~dp0..\enhsp25.jar" -o %1 -f %2 -planner sat-hadd -anytime -timeout 10 -sjr -pls > "%~dp0logsPDDL\print_very_last_state%TIMESTAMP%.txt" -sp "%~dp0logsPDDL\saved_plan_output_%TIMESTAMP%.txt"
 
