@@ -9,11 +9,11 @@ Studenti **Calderara** e **Gaibotti**.
 
 Il progetto è strutturato secondo un approccio incrementale. Ogni versione aggiunge nuovi vincoli e complessità allo scheduling, partendo da un modello base fino ad arrivare a un'ottimizzazione avanzata basata sui costi.
 
-* **V1:** 1 Corso, 1 Aula, N Materie, vincolo max 8 ore giornaliere. *(Work in Progress)*
-* **V2:** Aggiunta di vincoli come pausa pranzo e max 4 ore consecutive per materia. *(Da implementare)*
+* **V1:** 1 Corso, 1 Aula, N Materie.
+* **V2:** Aggiunta di vincoli come pausa pranzo.
 * **V3:** Introduzione di *professori, aule*.
 * **V4:** Introduzione dei *gruppiStudenti*.
-* **V%:** Creazione *problemGenerator.py*.
+* **V5:** Creazione *problemGenerator.py*.
 * **GUI**
 
 ## Cosa usiamo?
