@@ -85,6 +85,7 @@ with tab1:
     tab4, tab5, tab6, tab7, tab8 = st.tabs(["Corsi","Disponibilità Professori", "Disponibilità Aule", "Disponibilità GruppiStudenti", "Pausa Pranzo"])
     with tab4:
         #st.header("Corsi")
+        st.write("È possibile inserire un nuovo corso: é necessaria coerenza tra gli elementi inseriti nelle altre tab")
         # save the output back into session_state
         st.session_state["editedDataframes"]["corsi"] = st.data_editor(
             st.session_state["timetableDataframeDict"]["corsi"], #dataframe
@@ -95,6 +96,7 @@ with tab1:
         )
     with tab5:
         #st.header("Disponibilità Professori")
+        st.write("È possibile inserire il cognome e le ore in cui il professore è disponibile contrassegnate con \"1\", altrimenti inserire \"0\"")
         # save the output back into session_state
         st.session_state["editedDataframes"]["disponibilitàProfessori"] = st.data_editor(
             st.session_state["timetableDataframeDict"]["disponibilitàProfessori"], #dataframe
@@ -107,6 +109,7 @@ with tab1:
 
     with tab6:
         #st.header("Disponibilità aule")
+        st.write("È possibile inserire il vodice dell'aula e le ore in cui l'aula è disponibile contrassegnate con \"1\", altrimenti inserire \"0\"")
         # save the output back into session_state
         st.session_state["editedDataframes"]["disponibilitàAule"] = st.data_editor(
             st.session_state["timetableDataframeDict"]["disponibilitàAule"], #dataframe
@@ -117,6 +120,7 @@ with tab1:
         )
     with tab7:
         #st.header("Disponibilità gruppiStudenti")
+        st.write("È possibile inserire un identificativo univoco per un gruppo di studenti e le ore in cui essi sono disponibili contrassegnate con \"1\", altrimenti inserire \"0\"")
         # save the output back into session_state
         st.session_state["editedDataframes"]["disponibilitàGruppiStudenti"] = st.data_editor(
             st.session_state["timetableDataframeDict"]["disponibilitàGruppiStudenti"], #dataframe
@@ -127,6 +131,7 @@ with tab1:
         )
     with tab8:
         #st.header("Pausa pranzo")
+        st.write("È possibile inserire l'orario in cui si desidera posizionare la pausa pranzo")
         # save the output back into session_state
         st.session_state["editedDataframes"]["configurazione"] = st.data_editor(
             st.session_state["timetableDataframeDict"]["configurazione"], #dataframe
@@ -173,7 +178,8 @@ with tab2:
     if st.session_state["problemGeneratedFlag"] == True:
         batFileName = ""
 
-        col1, col2, col3 = st.columns(3)
+        # col1, col2, col3 = st.columns(3)
+        col1, col2 = st.columns(2)
 
         with col1:
             if st.button("Run SatisficingPlanning (Standard)", use_container_width=True):
@@ -183,9 +189,9 @@ with tab2:
             if st.button("Run OptimalPlanning", use_container_width=True):
                 batFileName="run-enhspOptimalPlanning.bat"
 
-        with col3:
-            if st.button("Run 3 (TODO)", use_container_width=True):
-                print("TODO")
+        # with col3:
+        #     if st.button("Run 3 (TODO)", use_container_width=True):
+        #         print("TODO")
     
         if batFileName != "":
             with st.spinner("Running planner..."):

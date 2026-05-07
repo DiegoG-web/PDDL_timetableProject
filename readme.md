@@ -1,22 +1,8 @@
-## TODO
-
-* Creazione demo (durata 3/4 minuti)
-* Studiare il **focus della relazione**
-* Completare i Readme
-* **STUDIARE TEORIA**
-* pulire il codice e commentarlo
-* studio timetable problem
-
-Quindi:
-**Produrre: demo, presentazione, documentazione, codice**
-
-Se possibile ultimare entro Mercoledì 6 maggio alle 23.59
-
-
 # Timetable Planner
 
 Pianificatore logico per la generazione di orari universitari utilizzando il PDDL (Planning Domain Definition Language). 
 Progetto sviluppato per il corso di Sistemi Intelligenti (ITID).
+
 Studenti **Calderara** e **Gaibotti**.
 
 ## Architettura e sviluppo incrementale
@@ -37,11 +23,28 @@ Per eseguire i file di questo progetto, è necessario avere a disposizione:
 * Il motore di pianificazione **ENHSP**.
 * **Visual Studio Code** con l'estensione *PDDL* di Jan Dolejší per praticità
 
-## Come avviare il planner?
+## Come avviare il Timetable Planner?
+
+Per utilizzare l'applicazione da noi sviluppata assicurarsi di avere installato la libreria **streamlit** e **pandas**
+
+```
+pip install streamlit
+pip install pandas
+```
+
+Successivamente posizionarsi in `\PDDL_timetableProject\application\GUI` ed eseguire `streamlit run gui.py`.
+Si aprirà una tab nel vostro browser con l'applicazione grafica. Eseguire le indicazioni a video ed esplorare l'app.
+
+I file di esempio, con diverse difficoltà si trovano in `\PDDL_timetableProject\application\GUI\xlsx`. 
+Caricarli per un utilizzo più semplice.
+
+## Come testare le versioni precedenti senza GUI?
 
 Posizionarsi nella cartella della versione desiderata e lanciare ENHSP da terminale passando il file di dominio e il file del problema.
 
-* CTRL+ALT+P
-* ALT+P
+Oppure utilizzare l'estensione **PDDL** attraverso VScode. Posizionarsi nel problem or domain da testare:
 
-Oppure da GUI
+* CTRL+ALT+P > create new planner configuration > Select an executable from this computer > select the "run-enhsp.bat" located in that vertion folder
+* ALT+P > No options (use defaults) > wait for the output of the planner(saved in the atomatically created "logsPDDL" folder)
+
+Feel free to edit the "run-enhsp.bat" configurations.
