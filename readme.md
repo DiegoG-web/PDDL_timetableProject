@@ -14,18 +14,19 @@ Il progetto è strutturato secondo un approccio incrementale. Ogni versione aggi
 * **V3:** Introduzione di *professori, aule*.
 * **V4:** Introduzione dei *gruppiStudenti*.
 * **V5:** Creazione *problemGenerator.py*.
-* **GUI**
+* **GUI** Tabular input, elaborazione, tabular output
 
 ## Cosa usiamo?
 
 Per eseguire i file di questo progetto, è necessario avere a disposizione:
 * Java 17+
-* Il motore di pianificazione **ENHSP**.
+* Il motore di pianificazione **ENHSP**(incluso nella repository).
 * **Visual Studio Code** con l'estensione *PDDL* di Jan Dolejší per praticità
+* Python 
 
 ## Come avviare il Timetable Planner?
 
-Per utilizzare l'applicazione da noi sviluppata assicurarsi di avere installato la libreria **streamlit** e **pandas**
+Per utilizzare l'applicazione grafica da noi sviluppata assicurarsi di avere installato la libreria **streamlit** e **pandas**
 
 ```
 pip install streamlit
@@ -35,7 +36,7 @@ pip install pandas
 Successivamente posizionarsi in `\PDDL_timetableProject\application\GUI` ed eseguire `streamlit run gui.py`.
 Si aprirà una tab nel vostro browser con l'applicazione grafica. Eseguire le indicazioni a video ed esplorare l'app.
 
-I file di esempio, con diverse difficoltà si trovano in `\PDDL_timetableProject\application\GUI\xlsx`. 
+I file di esempio, con diverse difficoltà crescenti si trovano in `\PDDL_timetableProject\application\GUI\xlsx`. 
 Caricarli per un utilizzo più semplice.
 
 ## Come testare le versioni precedenti senza GUI?
@@ -44,7 +45,7 @@ Posizionarsi nella cartella della versione desiderata e lanciare ENHSP da termin
 
 Oppure utilizzare l'estensione **PDDL** attraverso VScode. Posizionarsi nel problem or domain da testare:
 
-* CTRL+ALT+P > create new planner configuration > Select an executable from this computer > select the "run-enhsp.bat" located in that vertion folder
-* ALT+P > No options (use defaults) > wait for the output of the planner(saved in the atomatically created "logsPDDL" folder)
+* CTRL+ALT+P > create new planner configuration > Select an executable from this computer > Selezione il "run-enhsp.bat" posizionato nel folder di quella specifica versione
+* ALT+P > No options (use defaults) > Aspettare l'output del planner(salvato automaticamente nel folder "logsPDDL")
 
-Feel free to edit the "run-enhsp.bat" configurations.
+Sentirsi liberi di modificare le configurazioni del file "run-enhsp.bat".
