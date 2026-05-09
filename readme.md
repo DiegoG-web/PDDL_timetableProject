@@ -43,7 +43,7 @@ Caricarli per un utilizzo più semplice.
 
 Posizionarsi nella cartella della versione desiderata e lanciare ENHSP da terminale passando il file di dominio e il file del problema.
 
-Oppure utilizzare l'estensione **PDDL** attraverso VScode. Posizionarsi nel problem or domain da testare:
+Oppure utilizzare l'estensione **PDDL** attraverso VS Code. Posizionarsi nel problem or domain da testare:
 
 * CTRL+ALT+P > create new planner configuration > Select an executable from this computer > Selezione il "run-enhsp.bat" posizionato nel folder di quella specifica versione
 * ALT+P > No options (use defaults) > Aspettare l'output del planner(salvato automaticamente nel folder "logsPDDL")
