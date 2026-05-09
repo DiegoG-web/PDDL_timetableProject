@@ -23,6 +23,7 @@ Per eseguire i file di questo progetto, è necessario avere a disposizione:
 * Il motore di pianificazione **ENHSP**(incluso nella repository).
 * **Visual Studio Code** con l'estensione *PDDL* di Jan Dolejší per praticità
 * Python 
+* PC windows per avere la possibilità di usare i file .bat
 
 ## Come avviare il Timetable Planner?
 
